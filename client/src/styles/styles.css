@@ -47,7 +47,11 @@
 .header-button:hover {
     color: var(--small-detail-color);
     border: solid 1px var(--small-detail-color);
-  }
+}
+
+.header-button:focus {
+    outline: none;
+}
 
 .header-content {
     color: var(--added-detail-color);
@@ -70,4 +74,64 @@ a {
 
 a:hover {
     color: var(--small-detail-color);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(250, 3px);;
+    grid-auto-rows: 3px;
+    border: solid 2px var(--main-detail-color);
+}
+
+.grid-element {
+    border: solid 1px var(--main-detail-color);
+}
+
+.select-color-box {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-row-gap: 15px;
+    justify-items: center;
+    align-items: center;
+    border: solid 2px var(--main-detail-color);
+}
+
+.selected-color-text {
+    padding: 5px;
+    padding-left: 10px;
+}
+
+.selected-color {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-column-gap: 10px;
+    justify-items: center;
+    align-items: center;
+}
+
+.colors-to-select {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    grid-column-gap: 10px;
+    justify-items: center;
+    align-items: center;
+}
+
+.box {
+    width: 15px;
+    height: 15px;
+    border: solid 1px var(--main-detail-color);
+}
+
+.canva-box {
+    width: 100%;
+    display: grid;
+    justify-content: center;
+    
+}
+
+.canva {
+    display: inline-grid;
+    grid-template-rows: 15px;
+    grid-auto-rows: 15px;
 }

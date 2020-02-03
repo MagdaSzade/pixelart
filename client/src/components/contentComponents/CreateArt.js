@@ -1,8 +1,18 @@
 import React from 'react';
 
+import SelectBox from './SelectBox';
+import SelectSizeBox from './SelectSizeBox';
+import DrawArt from './DrawArt';
+
 class CreateArt extends React.Component {
     render() {
-        return <div>TO JEST CREATE ART</div>
+        return (
+            <div>                
+                <SelectBox />
+                <SelectSizeBox />
+                <DrawArt />
+            </div>
+        );
     }
 }
 
