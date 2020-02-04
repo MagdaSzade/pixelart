@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 
 import Button from '../headerComponents/Button'
-import { widthOfPixelArt, heightOfPixelArt } from '../../actions';
+import { sizeOfPixelArt } from '../../actions';
 
 import '../../styles/selectSizeBoxStyles.css'
 
@@ -15,8 +15,15 @@ class SelectSizeBox extends React.Component {
 
     onFormSubmit(event) {
         event.preventDefault();
-        this.props.widthOfPixelArt(event.target.width.value);
-        this.props.heightOfPixelArt(event.target.height.value);
+    }
+
+    onChange(event) {
+        const isBlank = (event.target.getAttribute("data-id").includes("clear")) ? true : false;
+        this.props.sizeOfPixelArt(
+            this.state.widthValue,
+            this.state.heightValue,
+            isBlank
+        );
     }
 
     render() {
@@ -60,8 +67,9 @@ class SelectSizeBox extends React.Component {
                                 onChange={(e)=>{this.setState({heightValue: e.target.value})}}>
                             </input>
                         </div>
-                        <div className="submit-button">
-                            <Button text="submit" />
+                        <div className="submit-button" onClick={(e) => this.onChange(e)}>
+                            <Button data="change" text="zmień" />
+                            <Button data="clear" text="wyczyść" />
                         </div>
                     </div>
                 </form>
@@ -72,9 +80,9 @@ class SelectSizeBox extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        width: state.width,
-        height: state.height
+        width: state.size.width,
+        height: state.size.height
     }
 }
 
-export default connect(mapStateToProps, { widthOfPixelArt, heightOfPixelArt })(SelectSizeBox);
+export default connect(mapStateToProps, { sizeOfPixelArt })(SelectSizeBox);

@@ -1,9 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { isNotBlank } from '../../actions';
+
 class DrawArt extends React.Component {
 
-    art = new Array();
+    state = {
+        art:  []
+    }
 
     createArray() {
         const canva = new Array(this.props.height);
@@ -20,16 +24,29 @@ class DrawArt extends React.Component {
                 }
             }
         }
-        this.art = canva;
-        return canva;
+        console.log("1", this.props.isBlank);
+        if (this.state.art.length === 0 || this.props.isBlank) {
+            this.state.art = canva;
+            this.props.isNotBlank();
+        } else {
+            const height = (this.state.art.length <= canva.length) ? this.state.art.length : canva.length;
+            const width = (this.state.art[0].length <= canva[0].length) ? this.state.art[0].length : canva[0].length; 
+            for (let i = 0; i < height; i++) {
+                for (let j = 0; j < width; j++) {
+                    canva[i][j].color = this.state.art[i][j].color;
+                }
+            }
+            this.state.art = canva;
+        }
     }
 
     createCanva() {
-        const canva = this.createArray()
-        return canva.map(row => {
+        this.createArray()
+        return this.state.art.map(row => {
             return row.map(pixel => {
                 const myStyle = {backgroundColor: pixel.color}
-                return <div className="grid-element" data={pixel.cell} style={myStyle}></div>;
+                const key = "key" + pixel.cell + pixel.color
+                return <div className="grid-element" data={pixel.cell} key={key} style={myStyle}></div>;
             })
         })
     }
@@ -54,8 +71,7 @@ class DrawArt extends React.Component {
                     col = cell.charAt(8) + cell.charAt(9);
                 }
             }
-            console.log(row, col);
-
+            this.state.art[row][col].color = this.props.selectedColor;
             event.target.style.backgroundColor = this.props.selectedColor;
         }
     }
@@ -75,10 +91,11 @@ class DrawArt extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        width: state.width,
-        height: state.height,
+        width: state.size.width,
+        height: state.size.height,
+        isBlank: state.size.blank,
         selectedColor: state.selectedColor
     }
 }
 
-export default connect(mapStateToProps)(DrawArt);
+export default connect(mapStateToProps, { isNotBlank })(DrawArt);

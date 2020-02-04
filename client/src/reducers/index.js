@@ -32,21 +32,18 @@ const selectedColorReducer = (selectedColor = "red", action) => {
     }
 }
 
-const selectWidthReducer = (width = 10, action) => {
+const sizeReducer = (size = { width: 10, height: 10, blank: true }, action) => {
     switch (action.type) {
-        case "WIDTH":
+        case ("SELECT_SIZE"):
             return action.payload;
+        case ("NOT_BLANK"):
+            return {
+                width: size.width,
+                height: size.height,
+                blank: false
+            }
         default:
-            return width;
-    }
-}
-
-const selectHeightReducer = (height = 10, action) => {
-    switch (action.type) {
-        case "HEIGHT":
-            return action.payload;
-        default:
-            return height;
+            return size;
     }
 }
 
@@ -54,6 +51,5 @@ export default combineReducers({
     actualView: contentViewReducer,
     viewData: viewDataReducer,
     selectedColor: selectedColorReducer,
-    width: selectWidthReducer,
-    height: selectHeightReducer
+    size: sizeReducer,
 });

@@ -3,10 +3,10 @@
     letter-spacing: 0.07em;
     --main-background-color: #303030;
     --components-background-color: #272727;
-    --main-detail-color: #747474;
+    --main-detail-color: #14A76C;
     --small-detail-color: #FF652F;
-    --border-detail-color: #FFE400;
-    --added-detail-color: #14A76C;
+    --border-detail-color: #747474;
+    --added-detail-color: #FFE400;
 }
 
 .conteiner {

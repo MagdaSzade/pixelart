@@ -19,17 +19,21 @@ export const selectColor = (color) => {
     }
 }
 
-export const widthOfPixelArt = (width) => {
+export const isNotBlank = () => {
     return {
-        type: "WIDTH",
-        payload: width
+        type: "NOT_BLANK",
     }
 }
 
-export const heightOfPixelArt = (height) => {
+export const sizeOfPixelArt = (width, height, blank) => {
+    const payload = {
+        width: width, 
+        height: height, 
+        blank: blank 
+    }
     return {
-        type: "HEIGHT",
-        payload: height
+        type: "SELECT_SIZE",
+        payload: payload
     }
 }
 
