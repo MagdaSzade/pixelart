@@ -44,8 +44,8 @@ class DrawArt extends React.Component {
         this.createArray()
         return this.state.art.map(row => {
             return row.map(pixel => {
-                const myStyle = {backgroundColor: pixel.color}
-                const key = "key" + pixel.cell + pixel.color
+                const myStyle = {backgroundColor: pixel.color};
+                const key = pixel.cell;
                 return <div className="grid-element" data={pixel.cell} key={key} style={myStyle}></div>;
             })
         })
@@ -72,7 +72,10 @@ class DrawArt extends React.Component {
                 }
             }
             this.state.art[row][col].color = this.props.selectedColor;
+            event.target.style.color = this.props.selectedColor;
             event.target.style.backgroundColor = this.props.selectedColor;
+            event.target.style.fontSize = '1px';
+            event.target.innerHTML = "k";
         }
     }
     
