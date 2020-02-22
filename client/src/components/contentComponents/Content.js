@@ -3,8 +3,10 @@ import { connect } from 'react-redux';
 
 import Art from './Art';
 import CreateArt from './CreateArt';
+import Popup from '../popup/Popup';
 
 import '../../styles/styles.css';
+
 
 class Content extends React.Component {
 
@@ -19,6 +21,7 @@ class Content extends React.Component {
     render() {
         return (
             <div className="bar-out">
+                <Popup></Popup>
                 <div className='bar-in'>
                     {this.contentView()}                    
                 </div>

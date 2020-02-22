@@ -47,9 +47,37 @@ const sizeReducer = (size = { width: 10, height: 10, blank: true }, action) => {
     }
 }
 
+const popupReducer = (popup = null, action) => {
+    switch (action.type) {
+        case ("LOGIN_POPUP"):
+            return "LOGIN";
+        case ("REGISTER"):
+            return "REGISTER";
+        case ("INFO"):
+            return "INFO";
+        case ("NONE"):
+            return null;
+        default:
+            return popup;
+    }
+}
+
+const isLoginReducer = (isLogin = null, action) => {
+    switch (action.type) {
+        case ("LOGIN"):
+            return action.payload;
+        case ("LOGOUT"):
+            return action.payload;
+        default:
+            return isLogin;
+    }
+}
+
 export default combineReducers({
     actualView: contentViewReducer,
     viewData: viewDataReducer,
     selectedColor: selectedColorReducer,
     size: sizeReducer,
+    popupType: popupReducer,
+    isLogin: isLoginReducer
 });
