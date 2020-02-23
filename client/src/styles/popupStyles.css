@@ -1,3 +1,15 @@
+:root {
+    font-family: 'Kreon', serif;
+    letter-spacing: 0.07em;
+    --main-background-color: #303030;
+    --components-background-color: #272727;
+    --main-detail-color: #14A76C;
+    --small-detail-color: #FF652F;
+    --border-detail-color: #747474;
+    --added-detail-color: #FFE400;
+}
+
+
 .popup-out {
     position: fixed;  
     width: 100%;
@@ -7,7 +19,7 @@
     right: 0; 
     bottom: 0;
     margin: auto;
-    background-color: rgba(0,0,0, 0.5);
+    background-color: rgba(0,0,0, 0.7);
     z-index: 1;
 }
 
@@ -21,8 +33,35 @@
     left: 0; 
     margin: auto;
     padding: 20px 20px;
-    border: 3px red solid;
+    border: 2px var(--border-detail-color) solid;
     border-radius: 15px; 
-    background: lightgrey;
-    color: #212121;
+    background: var(--main-background-color);
+    color: var(--main-detail-color);
+}
+
+.form {
+    display: grid;
+    grid-template-columns: 20% auto 20%;
+    grid-template-areas: 
+        "text text text"
+        "label input warning";
+}
+
+.popup-text {
+    grid-area: text;
+    margin: 5px;
+}
+
+.label {
+    margin: 2px;
+    padding: 2px;
+}
+
+.input-text {
+    width: 50%;
+    padding: 5px 3px;
+    margin: 3px;
+    background-color: var(--main-background-color);
+    border: 1px solid var(--border-detail-color);
+    color: var(--main-detail-color);
 }

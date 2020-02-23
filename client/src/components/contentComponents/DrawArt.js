@@ -26,7 +26,7 @@ class DrawArt extends React.Component {
         }
         console.log("1", this.props.isBlank);
         if (this.state.art.length === 0 || this.props.isBlank) {
-            this.state.art = canva;
+            this.setState({art: canva});
             this.props.isNotBlank();
         } else {
             const height = (this.state.art.length <= canva.length) ? this.state.art.length : canva.length;
@@ -36,12 +36,12 @@ class DrawArt extends React.Component {
                     canva[i][j].color = this.state.art[i][j].color;
                 }
             }
-            this.state.art = canva;
+            this.setState({art: canva});
         }
     }
 
     createCanva() {
-        this.createArray()
+        //this.createArray()
         return this.state.art.map(row => {
             return row.map(pixel => {
                 const myStyle = {backgroundColor: pixel.color};
