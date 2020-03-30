@@ -1,10 +1,13 @@
 import React from 'react';
 
+import { registerValidator, showError } from '../../validators/dataValidators'
+
 class RegisterPopup extends React.Component {
     state = {
         email: "",
         password: "",
-        password2: ""
+        password2: "",
+        error: {}
     }
 
     onEmailChange(event) {
@@ -21,8 +24,14 @@ class RegisterPopup extends React.Component {
 
     onFormSubmit(event) {
         event.preventDefault();
+        const errors = registerValidator(event.target);
+        if (errors.length === 0) {
+            
+        } else {
+            this.setState({error: errors});
+        }
     }
-    
+  
     render() {
         return (
             <div className="inner">
@@ -30,13 +39,13 @@ class RegisterPopup extends React.Component {
                     <div className="popup-text">Rejestracja</div>
                     <label className="label" htmlFor="email">E-mail:</label>
                     <input className="input-text" onChange={(e) => this.onEmailChange(e)} value={this.state.email} type="text" name="email" id="email"></input>
-                    <div className="warning"></div>
+                    {showError("email", this.state.error)}
                     <label className="label" htmlFor="password">Hasło:</label>
                     <input className="input-text" onChange={(e) => this.onPasswordChange(e)} value={this.state.password} type="password" name="password" id="password"></input>
-                    <div className="warning"></div>
+                    {showError("password", this.state.error)}
                     <label className="label" htmlFor="password2">Powtórz hasło:</label>
                     <input className="input-text" onChange={(e) => this.onPassword2Change(e)} value={this.state.password2} type="password" name="password2" id="password2"></input>
-                    <div className="warning"></div>
+                    {showError("passwords", this.state.error)}
                     <button className="header-button">rejestruj</button>
                 </form>
             </div>

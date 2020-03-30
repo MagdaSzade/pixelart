@@ -1,9 +1,12 @@
 import React from 'react';
 
+import { loginValidator, showError } from '../../validators/dataValidators'
+
 class LoginPopup extends React.Component {
     state = {
         email: "",
-        password: ""
+        password: "",
+        error: {}
     }
 
     onEmailChange(event) {
@@ -16,6 +19,12 @@ class LoginPopup extends React.Component {
 
     onFormSubmit(event) {
         event.preventDefault();
+        const errors = loginValidator(event.target);
+        if (errors.length === 0) {
+            
+        } else {
+            this.setState({error: errors});
+        }
     } 
 
     render() {
@@ -25,10 +34,10 @@ class LoginPopup extends React.Component {
                     <div className="popup-text">Logowanie</div>
                     <label className="label" htmlFor="email">E-mail:</label>
                     <input className="input-text" onChange={(e) => this.onEmailChange(e)} value={this.state.email} type="text" name="email" id="email"></input>
-                    <div className="warning"></div>
+                    {showError("email", this.state.error)}
                     <label className="label" htmlFor="password">Hasło:</label>
                     <input className="input-text" onChange={(e) => this.onPasswordChange(e)} value={this.state.password} type="password" name="password" id="password"></input>
-                    <div className="warning"></div>
+                    {showError("password", this.state.error)}
                     <button className="header-button">zaloguj</button>
                 </form>
             </div>
