@@ -20,6 +20,7 @@ class Popup extends React.Component {
                 return;
         }
     }
+    
     onClosePopup(event) {
         if (event.target.className.includes('popup-out')) {
             this.props.popupNone();

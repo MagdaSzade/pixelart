@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { isNotBlank } from '../../actions';
+import Pixel from './Pixel';
 
 class DrawArt extends React.Component {
 
@@ -9,10 +10,36 @@ class DrawArt extends React.Component {
         art:  []
     }
 
-    createArray() {
+    componentDidMount() {
+        this.createArt();
+    }
+
+    componentDidUpdate() {
+        console.log("isBlank", this.props.isBlank);
+        if (this.props.isBlank) {
+            this.createArt();
+            this.props.isNotBlank();
+        }
+        else if (this.props.height != this.state.art.length || this.props.width != this.state.art[0].length) {
+            console.log("tratarar")
+            //this.createArt();
+        }    
+    }
+
+    createCanva() {
+        return this.state.art.map(row => {
+            return row.map(pixel => {
+                const myStyle = {backgroundColor: pixel.color};
+                const key = pixel.cell;
+                return <Pixel style={myStyle} key={key} data={key}></Pixel>;
+            })
+        })
+    }
+
+    createArt() {
         const canva = new Array(this.props.height);
-            for (let i = 0; i < this.props.height; i++) {
-                canva[i] = new Array(this.props.width);
+        for (let i = 0; i < this.props.height; i++) {
+            canva[i] = new Array(this.props.width);
         }
 
         for (let i = 0; i < this.props.height; i++) {
@@ -24,31 +51,8 @@ class DrawArt extends React.Component {
                 }
             }
         }
-        console.log("1", this.props.isBlank);
-        if (this.state.art.length === 0 || this.props.isBlank) {
-            this.setState({art: canva});
-            this.props.isNotBlank();
-        } else {
-            const height = (this.state.art.length <= canva.length) ? this.state.art.length : canva.length;
-            const width = (this.state.art[0].length <= canva[0].length) ? this.state.art[0].length : canva[0].length; 
-            for (let i = 0; i < height; i++) {
-                for (let j = 0; j < width; j++) {
-                    canva[i][j].color = this.state.art[i][j].color;
-                }
-            }
-            this.setState({art: canva});
-        }
-    }
 
-    createCanva() {
-        //this.createArray()
-        return this.state.art.map(row => {
-            return row.map(pixel => {
-                const myStyle = {backgroundColor: pixel.color};
-                const key = pixel.cell;
-                return <div className="grid-element" data={pixel.cell} key={key} style={myStyle}></div>;
-            })
-        })
+        this.setState({art: canva});
     }
 
     onColor(event) {
@@ -71,17 +75,15 @@ class DrawArt extends React.Component {
                     col = cell.charAt(8) + cell.charAt(9);
                 }
             }
-            this.state.art[row][col].color = this.props.selectedColor;
-            event.target.style.color = this.props.selectedColor;
-            event.target.style.backgroundColor = this.props.selectedColor;
-            event.target.style.fontSize = '1px';
-            event.target.innerHTML = "k";
+            const canva = this.state.art;
+            canva[row][col].color = this.props.selectedColor;
+            this.setState({art: canva});
         }
     }
     
     render() {
         const grid = `repeat(${this.props.width}, 15px)`;
-        const myStyle = { gridTemplateColumns: grid } 
+        const myStyle = { gridTemplateColumns: grid }
         return (
             <div className="canva-box">  
                 <div onClick={(e) => {this.onColor(e)}}className="canva" style={myStyle}>

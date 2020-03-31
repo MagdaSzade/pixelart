@@ -67,7 +67,7 @@ class SelectSizeBox extends React.Component {
                                 onChange={(e)=>{this.setState({heightValue: e.target.value})}}>
                             </input>
                         </div>
-                        <div className="submit-button" onClick={(e) => this.onChange(e)}>
+                        <div className="submit-button" data-id="box" onClick={(e) => this.onChange(e)}>
                             <Button data="change" text="zmień" />
                             <Button data="clear" text="wyczyść" />
                         </div>
