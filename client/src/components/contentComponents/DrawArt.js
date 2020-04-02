@@ -15,14 +15,34 @@ class DrawArt extends React.Component {
     }
 
     componentDidUpdate() {
-        console.log("isBlank", this.props.isBlank);
         if (this.props.isBlank) {
             this.createArt();
             this.props.isNotBlank();
         }
         else if (this.props.height != this.state.art.length || this.props.width != this.state.art[0].length) {
-            console.log("tratarar")
-            //this.createArt();
+            const canva = new Array(this.props.height);
+            for (let i = 0; i < this.props.height; i++) {
+                canva[i] = new Array(this.props.width);
+            }
+    
+            for (let i = 0; i < this.props.height; i++) {
+                for (let j = 0; j < this.props.width; j++) {
+                    if (i < this.state.art.length && j < this.state.art[0].length) {
+                        let color = this.state.art[i][j].color;
+                        canva[i][j] = { 
+                            color: color,
+                            cell: 'row' + i + "col" + j
+                        } 
+                    } else {
+                        canva[i][j] = { 
+                            color: "#FFF",
+                            cell: 'row' + i + "col" + j
+                        } 
+                    }
+                }
+            }
+    
+            this.setState({art: canva});
         }    
     }
 
