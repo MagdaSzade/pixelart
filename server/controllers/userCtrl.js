@@ -1,7 +1,10 @@
-const User = require("../models/userModel");
+const { User, userValidator } = require("../models/userModel");
 
-createUser = (req, res) => {
-    console.log(req.body);
+createUser = async (req, res) => {
+    const { error } = userValidator(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
+    let user = new User({ email: req.body.email, password: req.body.password });
+    user = await user.save();
     res.send("ok");
 }
 

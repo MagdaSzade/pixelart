@@ -6,7 +6,7 @@ const User = mongoose.model("User", new mongoose.Schema({
     type: String,
     required: true,
     unique:true,
-    minlength: [3, 'Your email is too short'],
+    minlength: [6, 'Your email is too short'],
     maxlength: [200, 'Your email is too long!']
   },
   password: {
@@ -26,11 +26,12 @@ const User = mongoose.model("User", new mongoose.Schema({
 function userValidator(userData) {
     const userSchema = Joi.object({
         email: Joi.string()
-            .email({ minDomainSegments: 2 }),
+            .email({ minDomainSegments: 2 })
+            .required(),
         password: Joi.string()
-            .pattern(new RegExp('^[a-zA-Z0-9\d\W]{6,15}$'))
+            .required(),
     });
-    return Joi.validate(userData, userSchema);
+    return userSchema.validate(userData);
 }
 
 
