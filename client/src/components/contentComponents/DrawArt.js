@@ -41,7 +41,6 @@ class DrawArt extends React.Component {
                     }
                 }
             }
-    
             this.setState({art: canva});
         }    
     }
@@ -71,7 +70,6 @@ class DrawArt extends React.Component {
                 }
             }
         }
-
         this.setState({art: canva});
     }
 

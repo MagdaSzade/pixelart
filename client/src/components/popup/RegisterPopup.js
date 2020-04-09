@@ -1,4 +1,6 @@
 import React from 'react';
+import _ from 'lodash';
+import database from '../../api/database';
 
 import { registerValidator, showError } from '../../validators/dataValidators'
 
@@ -22,11 +24,20 @@ class RegisterPopup extends React.Component {
         this.setState({password2: event.target.value});
     }
 
-    onFormSubmit(event) {
+    onFormSubmit = async (event) => {
         event.preventDefault();
         const errors = registerValidator(event.target);
-        if (errors.length === 0) {
-            
+        if (_.isEmpty(errors)) {
+            console.log("I'm here!");
+            const response = await database.post('user/register', {
+                email: this.state.email,
+                password: this.state.password,
+            });
+            if (response.data.includes("E11000")) {
+                this.setState({error: {other: "Podany email już jest zarejestrowany"}})
+            } else {
+                this.setState({error: {other: "Wysłaliśmy do Ciebie e-mail, proszę potwierdź założenie konta"}});
+            }
         } else {
             this.setState({error: errors});
         }
@@ -47,6 +58,8 @@ class RegisterPopup extends React.Component {
                     <input className="input-text" onChange={(e) => this.onPassword2Change(e)} value={this.state.password2} type="password" name="password2" id="password2"></input>
                     {showError("passwords", this.state.error)}
                     <button className="header-button">rejestruj</button>
+                    <div></div>
+                    {showError("other", this.state.error)}
                 </form>
             </div>
         )
