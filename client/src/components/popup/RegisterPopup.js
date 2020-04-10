@@ -28,13 +28,14 @@ class RegisterPopup extends React.Component {
         event.preventDefault();
         const errors = registerValidator(event.target);
         if (_.isEmpty(errors)) {
-            console.log("I'm here!");
             const response = await database.post('user/register', {
                 email: this.state.email,
                 password: this.state.password,
             });
             if (response.data.includes("E11000")) {
-                this.setState({error: {other: "Podany email już jest zarejestrowany"}})
+                this.setState({error: {other: "Podany email już jest zarejestrowany"}});
+            } else if (response.data.includes("email")) {
+                this.setState({error: {email: "Niepoprawny format emailu"}});
             } else {
                 this.setState({error: {other: "Wysłaliśmy do Ciebie e-mail, proszę potwierdź założenie konta"}});
             }
