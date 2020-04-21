@@ -5,7 +5,7 @@ const User = mongoose.model("User", new mongoose.Schema({
   email: {
     type: String,
     required: true,
-    unique:true,
+    unique: true,
     minlength: [6, 'Your email is too short'],
     maxlength: [200, 'Your email is too long!']
   },
