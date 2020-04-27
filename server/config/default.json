@@ -1,5 +1,6 @@
 {
     "email": "",
     "password": "",
-    "jwtPrivateKey": ""
+    "jwtPrivateKey": "",
+    "webAdress": ""
 }

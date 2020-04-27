@@ -1,5 +1,6 @@
 {
     "email": "pixelart_email",
     "password": "pixelart_emailPassword",
-    "jwtPrivateKey": "pixelart_jwtPrivateKey"
+    "jwtPrivateKey": "pixelart_jwtPrivateKey",
+    "webAdress": "pixelart_webAdress"
 }

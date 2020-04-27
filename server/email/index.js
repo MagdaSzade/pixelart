@@ -15,7 +15,7 @@ const createConfirmationMail = (email, urlAdress) => { return {
     from: config.get('email'),
     to: email,
     subject: `Dziękuję za rejestrację w aplikacji PixelArt`,
-    text: `Aby potwierdzić adress email kliknij w poniższy link //n ${urlAdress}`
+    html: `Aby potwierdzić adress email kliknij w poniższy link <a href="${urlAdress}">POTWIERDŹ MNIE!!!</a>`
 }};
 
 module.exports = {

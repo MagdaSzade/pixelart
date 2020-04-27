@@ -4,6 +4,9 @@ const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 const config = require("config");
 
+const webAdress = config.get("webAdress") || "http://localhost:9090";
+const jwtKey = config.get("jwtPrivateKey") || "forTest";
+
 createUser = async (req, res) => {
     console.log(req.body);
     const { error } = userValidator(req.body);
@@ -13,14 +16,39 @@ createUser = async (req, res) => {
     let user = new User({ email: req.body.email, password:  password});
     try {
         user = await user.save();
-        const token = jwt.sign({id: user.id}, config.get("jwtPrivateKey"));
-        const message = createConfirmationMail(user.email, `http://localhost:3000/confirmation/${token}`);
-        console.log(message);
-        await transporter.sendMail(message);
+        jwt.sign(
+            {id: user.id,
+            exp: Math.floor(Date.now() / 1000) + (60 * 60)}, 
+            jwtKey, 
+            (err, token) => {
+                console.log(token);
+                const message = createConfirmationMail(user.email, `${webAdress}/api/user/confirmation/${token}`);
+                transporter.sendMail(message);
+            });
     } catch (err) {
         return res.status(200).send(err.message);
     }
     res.send("ok");
+}
+
+confirmation = (req, res) => {
+    jwt.verify(
+        req.params.token, 
+        jwtKey,
+        async (err, decoded) => {
+            if (err) {
+                return res.redirect(`${webAdress}`);
+            }
+            try {
+               User.updateOne({ _id: decoded.id }, { confirmed: true }, (err, numAffected) => {
+                   console.log("UPDATE!", numAffected);
+               })
+            } catch (err) {
+                console.log(err.message);
+            }
+        });
+
+    return res.redirect(`${webAdress}`);
 }
 
 getAllUsers = (req, res) => {
@@ -41,6 +69,7 @@ deleteUserById = (req, res) => {
 
 module.exports = {
     createUser,
+    confirmation,
     getAllUsers,
     getUserByUsername,
     login,

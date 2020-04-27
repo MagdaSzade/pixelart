@@ -4,6 +4,7 @@ const userCtrl = require('../controllers/userCtrl');
 const router = express();
 
 router.post('/register', userCtrl.createUser);
+router.get('/confirmation/:token', userCtrl.confirmation)
 router.get('/', userCtrl.getAllUsers);
 router.get('/:username', userCtrl.getUserByUsername);
 router.get('/login', userCtrl.login);
