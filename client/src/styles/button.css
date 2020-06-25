@@ -1,0 +1,19 @@
+.button {
+    min-width: 80px;
+    padding: 0.5rem;
+    margin: 5px;
+    text-align: center;
+    font-size: 0.8rem;
+    letter-spacing: 0.07em;
+    color: var(--main-detail-color);
+    background-color: var(--components-background-color);
+}
+
+.button:hover {
+    color: var(--small-detail-color);
+    border: solid 1px var(--small-detail-color);
+}
+
+.button:focus {
+    outline: none;
+}

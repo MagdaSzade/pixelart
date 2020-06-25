@@ -1,5 +1,6 @@
 :root {
     font-family: 'Kreon', serif;
+    background-color: var(--main-background-color);
     letter-spacing: 0.07em;
     --main-background-color: #303030;
     --components-background-color: #272727;
@@ -7,61 +8,26 @@
     --small-detail-color: #FF652F;
     --border-detail-color: #747474;
     --added-detail-color: #FFE400;
-}
-
-.conteiner {
-    width: 98vw;
-    margin: 1vh;
-    background-color: var(--main-background-color);
-}
-
-.bar-out {
-    width: 100vw;
-    max-width: 1000px;
-    padding: 10px;
-    margin: 0px auto;
-    background-color: var(--components-background-color);
-}
-
-.bar-in {
-    display: flex;
-    justify-content: space-around;
     color: var(--main-detail-color);
+
+}
+
+.solid-border {
     border: solid 2px var(--main-detail-color);
-    padding: 10px;
-    height: 100%;
 }
 
-.header-button {
-    width: 100px;
-    padding: 10px;
-    margin: 10px;
-    text-align: center;
-    font-size: 16px;
-    letter-spacing: 0.07em;
-    color: var(--main-detail-color);
+.thin-border {
     border: solid 1px var(--main-detail-color);
-    background-color: var(--components-background-color);
+    
 }
 
-.header-button:hover {
-    color: var(--small-detail-color);
-    border: solid 1px var(--small-detail-color);
+.grid {
+    display: grid;
+    justify-items: center;
+    align-items: center;
 }
 
-.header-button:focus {
-    outline: none;
-}
-
-.header-content {
-    color: var(--added-detail-color);
-    text-align: center;
-    text-transform: uppercase;
-    font-family: 'Indie Flower', cursive;
-    font-size: 40px;
-}
-
-.footer-wrapper {
+.flex {
     display: flex;
     justify-content: center;
     align-items: center; 
@@ -74,13 +40,6 @@ a {
 
 a:hover {
     color: var(--small-detail-color);
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(250, 3px);;
-    grid-auto-rows: 3px;
-    border: solid 2px var(--main-detail-color);
 }
 
 .grid-element {
@@ -96,6 +55,18 @@ a:hover {
     border: solid 2px var(--main-detail-color);
 }
 
+.margin {
+    margin: 5px;
+}
+
+.border {
+    border: solid 2px var(--main-detail-color);
+}
+
+.borderbox {
+    box-sizing: border-box; 
+}
+ 
 .selected-color-text {
     padding: 5px;
     padding-left: 10px;
@@ -127,7 +98,6 @@ a:hover {
     width: 100%;
     display: grid;
     justify-content: center;
-    
 }
 
 .canva {

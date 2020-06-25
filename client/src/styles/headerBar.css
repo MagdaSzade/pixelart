@@ -1,0 +1,11 @@
+.header-bar {
+    grid-template-columns: 1fr 4fr 1fr;
+}
+
+.header-bar h1 {
+    font-size: 2rem;
+    color: var(--added-detail-color);
+    margin: 0.4rem 0;
+    text-transform: uppercase;
+    font-family: 'Indie Flower', cursive;
+}

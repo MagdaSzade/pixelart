@@ -1,0 +1,6 @@
+.app-conteiner {
+    height: 98vh;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: var(--components-background-color);
+}
