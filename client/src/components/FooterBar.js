@@ -12,10 +12,10 @@ const FooterBar = () => {
                     <div className="footer-text">
                         Copyright © Magdalena Szade
                     </div>
-                    <a href="https://github.com/MagdaSzade" target='_blank'>
+                    <a href="https://github.com/MagdaSzade" target='_blank' rel="noopener noreferrer">
                         <GitHubIcon />    
                     </a>
-                    <a href="https://www.linkedin.com/in/magdalena-szade/" target='_blank'>
+                    <a href="https://www.linkedin.com/in/magdalena-szade/" target='_blank' rel="noopener noreferrer">
                         <LinkedInIcon />    
                     </a>
                 </div>

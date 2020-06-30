@@ -12,7 +12,8 @@ class App extends React.Component {
     state = {
         isPopup: false,
         width: 10,
-        hight: 10,
+        height: 10,
+        selectedColor: "black"
     };
 
     showPopUp = () => {
@@ -20,10 +21,17 @@ class App extends React.Component {
     };
 
     onSelectSize = size => {
+        console.log(size);
         this.setState({
             width: size.width,
-            hight: size.hight
+            height: size.height
         });
+    };
+
+    onSelectColor = color => {
+        this.setState({
+            selectedColor: color
+        })
     };
 
     render() {
@@ -32,17 +40,17 @@ class App extends React.Component {
                 <HeaderBar showPopUp={this.showPopUp} />
                 <div className="grid">
                     <SelectSize onSelectSize={this.onSelectSize}/>
-                    <SelectColor />
+                    <SelectColor onSelectColor={this.onSelectColor}/>
                 </div>
+                <Canva 
+                    selectedColor={this.state.selectedColor}
+                    width={this.state.width}  
+                    height={this.state.height}
+                />
                 <FooterBar />
             </div>
         );
     }
 }
-
-//
-//
-//<Canva />
-//
 
 export default App;

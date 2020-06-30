@@ -1,0 +1,14 @@
+.selected-color {
+    justify-content: center;
+    align-items: center;
+}
+
+.colors-to-select {
+    margin-top: 5px;
+}
+
+.select-color .pixel {
+    height: 10px;
+    width: 10px;
+    margin: 0 5px;
+}

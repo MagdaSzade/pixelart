@@ -1,51 +1,60 @@
 import React from 'react';
 
-import Button from './Button'
-
 class SelectSize extends React.Component {
+    state = {
+        width: 10,
+        height: 10
+    };
+
+    onHeightChange = event => {
+        this.setState({height: event.target.value});
+    };
+
+    onWidthChange = event => {
+        this.setState({width: event.target.value});
+    };
+
+    onSizeChange = event => {
+        event.preventDefault();
+        this.props.onSelectSize({
+            width: this.state.width,
+            height: this.state.height
+        })
+    }
 
     render() {
         return(
             <div className="select-size">
-                <form>
-                    <div className="select-size-box">
-                        <div className="slider-width-box select-box">
-                            <label className="select-size-text" htmlFor="width">szerokość</label>
-                            <input 
-                                className="input" 
-                                type="text" 
-                                id="width" 
-                            />px
-                            <input 
-                                className="slider" 
-                                type="range"  
-                                min="10" 
-                                max="20"
-                            />
-                        </div>
-                        <div className="slider-width-box select-box">
-                            <label className="select-size-text" htmlFor="width">szerokość</label>
-                            <input 
-                                className="input" 
-                                type="text" 
-                                id="width" 
-                            />px
-                            <input 
-                                className="slider" 
-                                type="range"  
-                                min="10" 
-                                max="20"
-                            />
-                        </div>
-                        <div className="submit-button" data-id="box">
-                            <Button data="change" text="zmień" />
-                            <Button data="clear" text="wyczyść" />
-                        </div>
-                    </div>
-                </form>
+                <form onSubmit={this.onSizeChange}>
+                    <label htmlFor="height">Wysokość</label>
+                    <input
+                        type="number"
+                        id="height"
+                        name="height"
+                        min="5"
+                        max="20"
+                        value={this.state.height}
+                        onChange={this.onHeightChange}
+                    />
+                    <label htmlFor="width">Szerokość</label>
+                    <input
+                        type="number"
+                        id="width"
+                        name="width"
+                        min="5"
+                        max="20"
+                        value={this.state.width}
+                        onChange={this.onWidthChange}
+                    />
+                    <input 
+                        type="submit"
+                        value="zmień" 
+                        className='button thin-border' >
+                    </input>
+                </form>    
             </div>
         )
     }
 }
 
-export default SelectSize;
+export default SelectSize;  

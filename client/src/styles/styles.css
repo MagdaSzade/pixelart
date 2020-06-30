@@ -59,49 +59,8 @@ a:hover {
     margin: 5px;
 }
 
-.border {
-    border: solid 2px var(--main-detail-color);
-}
 
 .borderbox {
     box-sizing: border-box; 
 }
  
-.selected-color-text {
-    padding: 5px;
-    padding-left: 10px;
-}
-
-.selected-color {
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-    grid-column-gap: 10px;
-    justify-items: center;
-    align-items: center;
-}
-
-.colors-to-select {
-    display: grid;
-    grid-template-columns: repeat(9, 1fr);
-    grid-column-gap: 10px;
-    justify-items: center;
-    align-items: center;
-}
-
-.box {
-    width: 15px;
-    height: 15px;
-    border: solid 1px var(--main-detail-color);
-}
-
-.canva-box {
-    width: 100%;
-    display: grid;
-    justify-content: center;
-}
-
-.canva {
-    display: inline-grid;
-    grid-template-rows: 15px;
-    grid-auto-rows: 15px;
-}
