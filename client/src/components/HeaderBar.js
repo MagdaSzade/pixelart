@@ -5,15 +5,10 @@ import '../styles/headerBar.css'
 
 const HeaderBar = ({ showPopUp }) => {
     return (
-        <div className='grid solid-border header-bar'>
-            <div className='info-button'>
-                <Button onClick={showPopUp} text="info"/>
-            </div>
+        <div className='solid-border header-bar'>
             <h1>
                 PIXELART DLA SANDRY
             </h1>
-            <div className='white-space'>
-            </div>
         </div>
     );
 }

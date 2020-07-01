@@ -2,10 +2,17 @@ import React from "react";
 
 import "../styles/pixel.css";
 
-const Pixel = (props) => {
-    return (
-        <div className="grid-element pixel .thin-border" data={props.data} style={props.style}></div>
-    )
+class Pixel extends React.Component {
+    constructor(props) {
+        super(props);
+        this.imageRef = React.createRef();
+    }
+
+    render() {
+        return (
+            <div className="grid-element pixel .thin-border" data=  {this.props.data} style={this.props.style}></div>
+        )
+    }
 }
 
 export default Pixel;

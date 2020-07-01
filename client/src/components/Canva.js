@@ -24,7 +24,8 @@ class Canva extends React.Component {
     render() {
         return (
             <div 
-                className="canva grid" 
+                className="canva grid"
+                id="canva"
                 style={{gridTemplateColumns: `repeat(${this.props.width}, 1fr)`}}
                 onClick={this.onColor}>  
                 {this.createCanva()}

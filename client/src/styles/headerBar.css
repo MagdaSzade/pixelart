@@ -1,5 +1,7 @@
 .header-bar {
-    grid-template-columns: 1fr 4fr 1fr;
+    display: inline-block;
+    width: 80%;
+    text-align:center;
 }
 
 .header-bar h1 {
