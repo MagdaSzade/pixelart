@@ -3,16 +3,48 @@ import React from 'react';
 import Pixel from './Pixel';
 
 class Canva extends React.Component {
+    state = {
+        colors: []
+    }
+
+    componentDidMount() {
+        let colors = [];
+        for (let i = 0; i < this.props.height * this.props.width; i++) {
+            colors.push("white");
+        }
+        this.setState({ colors });
+    }
+
     createCanva = () => {
         return (
-            Array.from({ length: this.props.height }, (v, k) =>  {
+            Array.from({ length: this.props.height }, (v, h) =>  {
                 return (
-                    Array.from({length : this.props.width}, (v, k) => {
-                        return <Pixel style={{backgroundColor: "white"}}/>
+                    Array.from({length : this.props.width}, (v, w) => {
+                        const key = this.createKey(h, w);
+                        return <Pixel key={key} id={key} style={{backgroundColor: "white"}}/>
                     })
                 )
             })
         )
+    }
+
+    createKey(height, width) {
+        let key = "";
+        if (height < 10) {
+            key += "0" + height;
+            console.log(key);
+        } else {
+            key += height;
+            console.log(key);
+        }
+        if (width < 10) {
+            key += "0" + width;
+            console.log(key);
+        } else {
+            key += width;
+            console.log(key);
+        }
+        return key;
     }
     
     onColor = (event) => {
