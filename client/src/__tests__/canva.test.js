@@ -1,7 +1,16 @@
 const { default: Canva } = require("../components/Canva");
 
-import React from 'react';
-//import { create } from 'react-test-render';
+test('fill colors array at the beginning', () => {
+    const wrapper = mount(<Canva height='5' width='5'/>); 
+    expect(canva.state.colors.length).toBe(25);
+});
+
+test('createKey', () => {
+    const canva = new Canva();
+    expect(canva.createKey(4, 5)).toBe("0405");
+    expect(canva.createKey(0, 0)).toBe("0000");
+    expect(canva.createKey(15, 20)).toBe("1520"); 
+});
 
 test('indexOfPixel 10x10', () => {
     const props = {
