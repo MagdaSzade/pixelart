@@ -11,17 +11,22 @@ class SelectColor extends React.Component {
         colorsToSelect: ["red", "green", "yellow", "black", "blue", "purple", "orange", "white"]
     }
 
-    onSelectColor = (event) => {
-        if (event.target.className.includes("pixel")) {
-            this.setState({selectedColor: event.target.style.backgroundColor});
-            this.props.onSelectColor(event.target.style.backgroundColor);
-        }
+    onSelectColor = (pixelRef) => {
+        console.log(pixelRef.current)
+        this.setState({ selectedColor: pixelRef.current.style.backgroundColor });
+        this.props.onSelectColor(this.state.selectedColor);
     }
 
     allColorToSelect() {
         return (
             this.state.colorsToSelect.map(color => {
-                return <Pixel style={{backgroundColor: color}} key={color}/>
+                return (
+                    <Pixel 
+                        style={{backgroundColor: color}} 
+                        key={color}
+                        onPixelClick={this.onSelectColor}
+                    />
+                )
             })
         )
     }
@@ -33,9 +38,7 @@ class SelectColor extends React.Component {
                     <div className="selected-color-text">Wybrany kolor</div>
                     <Pixel style={{backgroundColor: this.state.selectedColor}}/>
                 </div>
-                <div className="colors-to-select flex" 
-                    onClick={this.onSelectColor}   
-                >
+                <div className="colors-to-select flex">
                     {this.allColorToSelect()}
                 </div>
             </div>

@@ -21,7 +21,13 @@ class Canva extends React.Component {
                 return (
                     Array.from({length : this.props.width}, (v, w) => {
                         const key = this.createKey(h, w);
-                        return <Pixel key={key} id={key} style={{backgroundColor: "white"}}/>
+                        return (
+                            <Pixel 
+                                key={key} 
+                                id={key} 
+                                style={{backgroundColor: "white"}}
+                                onPixelClick={this.onChangeColor}/>
+                        )
                     })
                 )
             })
@@ -32,25 +38,20 @@ class Canva extends React.Component {
         let key = "";
         if (height < 10) {
             key += "0" + height;
-            console.log(key);
         } else {
             key += height;
-            console.log(key);
         }
         if (width < 10) {
             key += "0" + width;
-            console.log(key);
         } else {
             key += width;
-            console.log(key);
         }
         return key;
     }
     
-    onColor = (event) => {
-        if (event.target.className.includes("pixel")) {
-            event.target.style.backgroundColor = this.props.selectedColor;
-        }
+    onChangeColor = (pixelRef) => {
+        console.log(pixelRef.current);
+        pixelRef.current.style.backgroundColor = this.props.selectedColor;
     }
 
     render() {
@@ -59,7 +60,7 @@ class Canva extends React.Component {
                 className="canva grid"
                 id="canva"
                 style={{gridTemplateColumns: `repeat(${this.props.width}, 1fr)`}}
-                onClick={this.onColor}>  
+            >  
                 {this.createCanva()}
             </div>
             
