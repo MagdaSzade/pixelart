@@ -12,7 +12,6 @@ class SelectColor extends React.Component {
     }
 
     onSelectColor = (pixelRef) => {
-        console.log(pixelRef.current)
         this.setState({ selectedColor: pixelRef.current.style.backgroundColor });
         this.props.onSelectColor(this.state.selectedColor);
     }

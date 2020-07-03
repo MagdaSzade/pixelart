@@ -26,7 +26,8 @@ class Canva extends React.Component {
                                 key={key} 
                                 id={key} 
                                 style={{backgroundColor: "white"}}
-                                onPixelClick={this.onChangeColor}/>
+                                onPixelClick={this.onChangeColor}
+                            />
                         )
                     })
                 )
@@ -50,8 +51,16 @@ class Canva extends React.Component {
     }
     
     onChangeColor = (pixelRef) => {
-        console.log(pixelRef.current);
-        pixelRef.current.style.backgroundColor = this.props.selectedColor;
+        //pixelRef.current.style.backgroundColor = this.props.selectedColor;
+        const index = this.indexOfPixel(pixelRef.current.id);
+        this.state.colors[index] = this.props.selectedColor;
+    }
+
+    indexOfPixel(pixelId) {
+        const height = parseInt(pixelId.substring(0, 2));
+        const width = parseInt(pixelId.substring(2));
+        const index = height * this.props.width + width;
+        return index;
     }
 
     render() {
