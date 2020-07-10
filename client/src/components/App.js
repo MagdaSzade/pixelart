@@ -19,10 +19,9 @@ class App extends React.Component {
     };
 
     onSelectSize = size => {
-        console.log(size);
         this.setState({
-            width: size.width,
-            height: size.height
+            width: parseInt(size.width),
+            height: parseInt(size.height)
         });
     };
 

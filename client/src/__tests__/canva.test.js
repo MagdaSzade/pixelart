@@ -1,8 +1,19 @@
-const { default: Canva } = require("../components/Canva");
+import React from 'react';
+import Enzyme from 'enzyme'
+import Adapter from 'enzyme-adapter-react-16';
+import Canva from '../components/Canva';
+import Pixel from '../components/Pixel';
 
 test('fill colors array at the beginning', () => {
-    const wrapper = mount(<Canva height='5' width='5'/>); 
-    expect(canva.state.colors.length).toBe(25);
+    Enzyme.configure({ adapter: new Adapter() });
+    const wrapper = Enzyme.shallow(<Canva height='5' width='5'/>);
+    expect(wrapper.state('colors').length).toBe(25);
+});
+
+test('render pixels in given amount', () => {
+    Enzyme.configure({ adapter: new Adapter() });
+    const wrapper = Enzyme.mount(<Canva height='5' width='5'/>);
+    expect(wrapper.find(Pixel).length).toBe(25);
 });
 
 test('createKey', () => {

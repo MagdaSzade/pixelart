@@ -4,35 +4,51 @@ import Pixel from './Pixel';
 
 class Canva extends React.Component {
     state = {
-        colors: []
+        pixels: [],
+        width: 0,
+        height: 0
     }
 
     componentDidMount() {
-        let colors = [];
-        for (let i = 0; i < this.props.height * this.props.width; i++) {
-            colors.push("white");
+        let pixels = this.createWhiteBoard(this.props.height, this.props.width);
+        this.setState({ width: this.props.width, height: this.props.height, pixels: pixels });
+    }
+
+    componentDidUpdate() {
+        if (this.props.width !== this.state.width || this.props.height !== this.state.height) {
+            const newPixels = this.createWhiteBoard(this.props.height, this.props.width);
+            newPixels.forEach(pixel => {
+                const index = this.state.pixels.findIndex((element) => { return element.key === pixel.key});
+                if ( index !== -1 ) {
+                    pixel.color = this.state.pixels[index].color
+                }
+            });
+            console.log(newPixels);
+            this.setState({ width: this.props.width, height: this.props.height, pixels: newPixels });
         }
-        this.setState({ colors });
+    }
+
+    createWhiteBoard = (height, width) => {
+        let whiteBoard = [];
+        for (let i = 0; i < height * width; i++) {
+            const key = this.createKey(Math.floor(i/height), (i)%width);
+            const pixel = { color: 'white', key: key };
+            whiteBoard.push(pixel);
+        }
+        return whiteBoard;
     }
 
     createCanva = () => {
-        return (
-            Array.from({ length: this.props.height }, (v, h) =>  {
-                return (
-                    Array.from({length : this.props.width}, (v, w) => {
-                        const key = this.createKey(h, w);
-                        return (
-                            <Pixel 
-                                key={key} 
-                                id={key} 
-                                style={{backgroundColor: "white"}}
-                                onPixelClick={this.onChangeColor}
-                            />
-                        )
-                    })
-                )
-            })
-        )
+        return this.state.pixels.map((pixel) => {       
+            return (
+                <Pixel 
+                    key={pixel.key} 
+                    id={pixel.key} 
+                    style={{backgroundColor: pixel.color}}
+                    onPixelClick={this.onChangeColor}
+                />
+            )
+        });        
     }
 
     createKey(height, width) {
@@ -51,9 +67,14 @@ class Canva extends React.Component {
     }
     
     onChangeColor = (pixelRef) => {
-        //pixelRef.current.style.backgroundColor = this.props.selectedColor;
         const index = this.indexOfPixel(pixelRef.current.id);
-        this.state.colors[index] = this.props.selectedColor;
+        const newPixels = this.state.pixels.map((pixel, i) => {
+            if (i === index) {
+                return { color: this.props.selectedColor, key: pixel.key };
+            }
+            return pixel;
+        })
+        this.setState({ pixels: newPixels });
     }
 
     indexOfPixel(pixelId) {
