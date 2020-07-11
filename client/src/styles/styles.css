@@ -46,19 +46,9 @@ a:hover {
     border: solid 1px var(--main-detail-color);
 }
 
-.select-color-box {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    grid-row-gap: 15px;
-    justify-items: center;
-    align-items: center;
-    border: solid 2px var(--main-detail-color);
-}
-
 .margin {
     margin: 5px;
 }
-
 
 .borderbox {
     box-sizing: border-box; 

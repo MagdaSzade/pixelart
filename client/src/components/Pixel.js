@@ -20,7 +20,7 @@ class Pixel extends React.Component {
         return (
             <div 
                 ref={this.pixelRef}
-                className="grid-element pixel .thin-border" 
+                className="pixel thin-border" 
                 id=  {this.props.id} 
                 style={this.props.style}>
             </div>

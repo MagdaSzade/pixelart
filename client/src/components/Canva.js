@@ -23,15 +23,17 @@ class Canva extends React.Component {
                     pixel.color = this.state.pixels[index].color
                 }
             });
-            console.log(newPixels);
             this.setState({ width: this.props.width, height: this.props.height, pixels: newPixels });
+        }
+        if (this.props.sendArtState) {
+            this.props.sendArt(this.state.pixels);
         }
     }
 
     createWhiteBoard = (height, width) => {
         let whiteBoard = [];
         for (let i = 0; i < height * width; i++) {
-            const key = this.createKey(Math.floor(i/height), (i)%width);
+            const key = this.indexToKey(i);
             const pixel = { color: 'white', key: key };
             whiteBoard.push(pixel);
         }
@@ -49,6 +51,13 @@ class Canva extends React.Component {
                 />
             )
         });        
+    }
+
+    indexToKey(index) {
+        const width = (index)%this.props.width;
+        const height = Math.floor(index/this.props.width);
+        const key = this.createKey(height, width);
+        return key;
     }
 
     createKey(height, width) {
@@ -86,14 +95,13 @@ class Canva extends React.Component {
 
     render() {
         return (
-            <div 
-                className="canva grid"
-                id="canva"
-                style={{gridTemplateColumns: `repeat(${this.props.width}, 1fr)`}}
-            >  
-                {this.createCanva()}
-            </div>
-            
+                <div 
+                    className="canva grid"
+                    id="canva"
+                    style={{gridTemplateColumns: `repeat(${this.props.width}, 1fr)`}}
+                >
+                    {this.createCanva()}
+                </div>
         )
     }
 }

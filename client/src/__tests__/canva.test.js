@@ -7,13 +7,13 @@ import Pixel from '../components/Pixel';
 test('fill colors array at the beginning', () => {
     Enzyme.configure({ adapter: new Adapter() });
     const wrapper = Enzyme.shallow(<Canva height='5' width='5'/>);
-    expect(wrapper.state('colors').length).toBe(25);
+    expect(wrapper.state('pixels').length).toBe(25);
 });
 
 test('render pixels in given amount', () => {
     Enzyme.configure({ adapter: new Adapter() });
-    const wrapper = Enzyme.mount(<Canva height='5' width='5'/>);
-    expect(wrapper.find(Pixel).length).toBe(25);
+    const wrapper = Enzyme.mount(<Canva height='11' width='10'/>);
+    expect(wrapper.find(Pixel).length).toBe(110);
 });
 
 test('createKey', () => {
@@ -53,3 +53,14 @@ test('indexOfPixel 2x9', () => {
     expect(canva.indexOfPixel("0101")).toBe(10);
     expect(canva.indexOfPixel("0103")).toBe(12);
 });
+
+test('indexToKey width 11', () => {
+    const props = {
+        height: 11,
+        width: 10
+    }
+    const canva = new Canva(props);
+    expect(canva.indexToKey(10)).toBe("0100");
+    expect(canva.indexToKey(99)).toBe("0909");
+    expect(canva.indexToKey(109)).toBe("1009");
+})

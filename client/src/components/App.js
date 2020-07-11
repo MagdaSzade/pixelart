@@ -13,9 +13,11 @@ import '../styles/app.css'
 class App extends React.Component {
     state = {
         isPopup: false,
-        width: 10,
-        height: 10,
-        selectedColor: "black"
+        width: 5,
+        height: 5,
+        selectedColor: "black",
+        pixels: [],
+        sendArt: false
     };
 
     onSelectSize = size => {
@@ -33,13 +35,21 @@ class App extends React.Component {
 
     isPopup() {
         if (this.state.isPopup) {
-            return <PopUp />
+            return <PopUp pixels={this.state.pixels} />
         }
     }
     
     onSaveArt = () => {
-        this.setState({ isPopup: true })
+        this.setState({ sendArt: true })
     };
+
+    sendArt = (pixels) => {
+        this.setState({ 
+            pixels: pixels, 
+            sendArt: false, 
+            isPopup: true 
+        });
+    }
 
     render() {
         return (
@@ -53,9 +63,10 @@ class App extends React.Component {
                     selectedColor={this.state.selectedColor}
                     width={this.state.width}  
                     height={this.state.height}
+                    sendArtState={this.state.sendArt}
+                    sendArt={this.sendArt}
                 />
-                <Button onClick={this.onSaveArt} text="zapisz"/>
-                <div className="result"></div>
+                <Button onButtonClick={this.onSaveArt} text="zapisz"/>
                 <FooterBar />
                 { this.isPopup() }
             </div>

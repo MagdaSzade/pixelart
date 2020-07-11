@@ -2,8 +2,8 @@ import React from 'react';
 
 class SelectSize extends React.Component {
     state = {
-        width: 10,
-        height: 10
+        width: 5,
+        height: 5
     };
 
     onHeightChange = event => {

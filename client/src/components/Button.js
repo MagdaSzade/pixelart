@@ -4,7 +4,7 @@ import '../styles/button.css';
 
 const Button = (props) => {
     return (
-        <button className='button thin-border' onClick={props.onClick}>{props.text}</button>
+        <button className='button thin-border' onClick={props.onButtonClick}>{props.text}</button>
     )
 }
 
