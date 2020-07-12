@@ -8,7 +8,7 @@ import FooterBar from './FooterBar';
 import Button from './Button';
 import PopUp from './PopUp';
 
-import '../styles/app.css'
+import '../styles/app.css';
 
 class App extends React.Component {
     state = {
@@ -35,7 +35,12 @@ class App extends React.Component {
 
     isPopup() {
         if (this.state.isPopup) {
-            return <PopUp pixels={this.state.pixels} />
+            return <PopUp 
+                pixels={this.state.pixels} 
+                width={this.state.width}
+                height={this.state.height}
+                closePopUp={this.closePopUp}
+                />
         }
     }
     
@@ -49,6 +54,12 @@ class App extends React.Component {
             sendArt: false, 
             isPopup: true 
         });
+    }
+
+    closePopUp = () => {
+        this.setState({
+            isPopup: false
+        })
     }
 
     render() {
