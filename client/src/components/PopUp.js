@@ -1,6 +1,5 @@
 import React from 'react';
 
-import FacebookIcon from '@material-ui/icons/Facebook';
 import Button from './Button';
 
 import '../styles/popup.css';
@@ -17,7 +16,7 @@ class PopUp extends React.Component {
             const startPointY = parseInt(pixel.key.substring(0, 2)) * 10;
             const startPointX = parseInt(pixel.key.substring(2)) * 10;
             ctx.fillRect(startPointX, startPointY, 10, 10);
-            setTimeout(() => {this.setState({isFacebook: true})}, 10000)
+            setTimeout(() => {this.setState({isFacebook: true})}, 1000)
         })
     }
 
@@ -28,7 +27,16 @@ class PopUp extends React.Component {
 
     isFacebookAvailable() {
         if (this.state.isFacebook) {
-            return <FacebookIcon />
+            return (
+                <iframe 
+                    src="https://www.facebook.com/plugins/share_button.php?href=http%3A%2F%2Fwww.google.com%2F&layout=button&size=large&width=107&height=28&appId" 
+                    width="107" 
+                    height="28" 
+                    style={{border:'none', overflow:'hidden'}} scrolling="no" 
+                    frameBorder="0"
+                    allow="encrypted-media">
+                </iframe>
+            )
         }
     }
 
@@ -42,6 +50,9 @@ class PopUp extends React.Component {
                     <div className="summary">
                         Aby udostępnić swój pixelart na facebooku zapłać cokolwiek na skarbonkę dla Sandry.
                         <Button onButtonClick={this.openPortal} text="wpłać"/>
+                        <a href="result.html">
+                            <Button  text="przejdź"/>
+                        </a>
                     </div>
                     {this.isFacebookAvailable()}
                 </div>
