@@ -1,13 +1,16 @@
 import React from 'react';
 
 import Button from './Button';
+import { sendArt } from '../api/database'
 
 import '../styles/popup.css';
 
 class PopUp extends React.Component {
     state = {
-        isFacebook: false
+        isFacebook: false,
+        id: null,
     }
+
     componentDidMount() {
         const canvas = document.getElementById("myCanvas");
         const ctx = canvas.getContext("2d");
@@ -16,20 +19,33 @@ class PopUp extends React.Component {
             const startPointY = parseInt(pixel.key.substring(0, 2)) * 10;
             const startPointX = parseInt(pixel.key.substring(2)) * 10;
             ctx.fillRect(startPointX, startPointY, 10, 10);
-            setTimeout(() => {this.setState({isFacebook: true})}, 1000)
-        })
+        });
+        this.saveToDatabase();
+        //setTimeout(() => {this.setState({isFacebook: true})}, 1000)
     }
 
-    openPortal = () => {
-        const win = window.open( 'https://www.siepomaga.pl/skarbonki/pixelart/koszyk/dodaj' ,'_blank');
+    saveToDatabase = async () => {
+        let pixelsToSend = [];
+        for (const pixel of this.props.pixels) {
+            pixelsToSend.push(pixel.color);
+        }
+        const response = await sendArt(pixelsToSend, this.props.width);
+
+    }
+
+    openPortal = async () => {
+        const win = window.open( 'https://www.siepomaga.pl/skarbonki/pixelart/koszyk/dodaj');
         win.focus();
     }
+
+
 
     isFacebookAvailable() {
         if (this.state.isFacebook) {
             return (
                 <iframe 
-                    src="https://www.facebook.com/plugins/share_button.php?href=http%3A%2F%2Fwww.google.com%2F&layout=button&size=large&width=107&height=28&appId" 
+                    src="https://www.facebook.com/plugins/share_button.php?href=http%3A%2F%2Fwww.google.com%2F&layout=button&size=large&width=107&height=28&appId"
+                    title="facebook-share-button"
                     width="107" 
                     height="28" 
                     style={{border:'none', overflow:'hidden'}} scrolling="no" 

@@ -7,7 +7,7 @@ saveArt = async (req, res) => {
         width: req.body.width
     };
     if (!artValidator(reqArt)) {
-        res.status(400).send();
+        return res.status(400).send();
     };
     let art = new Art({
         pixels: reqArt.pixels,
@@ -16,9 +16,9 @@ saveArt = async (req, res) => {
     try {
         art = await art.save();
     } catch(err) {
-        res.status(500).send(err.massage[0]);
+        return res.status(500).send(err.massage[0]);
     }
-    res.status(201).send(art);
+    return res.status(201).send(art);
 }, 
 
 isPayed = async (req, res) => {
