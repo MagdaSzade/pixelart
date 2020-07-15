@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const db = require('./db');
-const userRouter = require("./routes/users");
+const artRouter = require("./routes/art");
 
 const app = express();
 
@@ -15,5 +15,6 @@ app.get('/', (req, res) => {
     res.send('Hello World from backend !')
 });
 
-app.use('/api/user', userRouter);
+app.use('/api/art', artRouter);
+
 app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`));

@@ -1,6 +1,7 @@
 {
   "name": "pixelartbackend",
   "version": "1.0.0",
+  "type": "module",
   "description": "server side for creating pixel art",
   "main": "index.js",
   "scripts": {
