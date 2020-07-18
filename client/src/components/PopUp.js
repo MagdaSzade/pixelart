@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Button from './Button';
-import { sendArt } from '../api/database'
+import { sendArt, checkIfPayed } from '../api/database'
 
 import '../styles/popup.css';
 
@@ -9,7 +9,10 @@ class PopUp extends React.Component {
     state = {
         isFacebook: false,
         id: null,
+        isPayed: false
     }
+
+ 
 
     componentDidMount() {
         const canvas = document.getElementById("myCanvas");
@@ -21,7 +24,6 @@ class PopUp extends React.Component {
             ctx.fillRect(startPointX, startPointY, 10, 10);
         });
         this.saveToDatabase();
-        //setTimeout(() => {this.setState({isFacebook: true})}, 1000)
     }
 
     saveToDatabase = async () => {
@@ -30,8 +32,22 @@ class PopUp extends React.Component {
             pixelsToSend.push(pixel.color);
         }
         const response = await sendArt(pixelsToSend, this.props.width);
-
+        this.setState({ id: response.data._id });
+        this.checkIfPayed();
     }
+    
+    checkIfPayed = async () => {
+        if ( !this.state.isPayed ) {
+            var checking = setInterval(async () => {
+                let res = await checkIfPayed(this.state.id);
+                console.log(res);
+                if ( res === true ) {
+                    clearInterval(checking);
+                }
+            }, 1000);
+        };
+    } 
+    
 
     openPortal = async () => {
         const win = window.open( 'https://www.siepomaga.pl/skarbonki/pixelart/koszyk/dodaj');
