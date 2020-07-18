@@ -11,7 +11,7 @@ export const sendArt = async (pixels, width) => {
     return response;
 };
 
-export const checkIfPayed = async (id) => {
-    const response = await axios.get(`${baseURL}/isPayed/${id}`);
-    return response.data.isPayed;
+export const checkIfPaid = async (id) => {
+    const response = await axios.get(`${baseURL}/isPaid/${id}`);
+    return response.data.isPaid;
 }

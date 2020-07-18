@@ -24,17 +24,17 @@ saveArt = async (req, res) => {
     } return res.status(400).send();
 }, 
 
-isPayed = async (req, res) => {
+isPaid = async (req, res) => {
     try {
         const art = await Art.findById(req.params.id);
         console.log(art);
             if (art) {
-                const isPayed = 
-                    { isPayed: await scrapeId(req.params.id) };
-                console.log(isPayed);
-                res.status(200).json(isPayed).send();
-                if (isPayed.isPayed === true) {
-                    art.isPayed = true;
+                const isPaid = 
+                    { isPaid: await scrapeId(req.params.id) };
+                console.log(isPaid);
+                res.status(200).json(isPaid).send();
+                if (isPaid.isPaid === true) {
+                    art.isPaid = true;
                     art.save();
                 }
                 return
@@ -53,6 +53,6 @@ getArt = async (req, res) => {
 
 module.exports = {
     saveArt,
-    isPayed,
+    isPaid,
     getArt,
 }

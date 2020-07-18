@@ -5,9 +5,9 @@ const URL = 'https://www.siepomaga.pl/pixelart';
 const scrapeId = async (id) => {
     const res = await fetch(URL);
     const html = await res.text();
-    const isPayed = html.includes(id);
+    const isPaid = html.includes(id);
 
-    return isPayed;
+    return isPaid;
 }
 
 module.exports ={

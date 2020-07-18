@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Button from './Button';
-import { sendArt, checkIfPayed } from '../api/database'
+import { sendArt, checkIfPaid } from '../api/database'
 
 import '../styles/popup.css';
 
@@ -9,7 +9,7 @@ class PopUp extends React.Component {
     state = {
         isFacebook: false,
         id: '5f0f52155e76773a3011252c',
-        isPayed: false
+        isPaid: false
     }
 
  
@@ -24,7 +24,7 @@ class PopUp extends React.Component {
             ctx.fillRect(startPointX, startPointY, 10, 10);
         });
         //this.saveToDatabase();
-        this.checkIfPayed();
+        this.checkIfPaid();
     }
 
     saveToDatabase = async () => {
@@ -34,13 +34,13 @@ class PopUp extends React.Component {
         }
         const response = await sendArt(pixelsToSend, this.props.width);
         this.setState({ id: response.data._id });
-        this.checkIfPayed();
+        this.checkIfPaid();
     }
     
-    checkIfPayed = async () => {
-        if ( !this.state.isPayed ) {
+    checkIfPaid = async () => {
+        if ( !this.state.isPaid ) {
             var checking = setInterval(async () => {
-                let res = await checkIfPayed(this.state.id);
+                let res = await checkIfPaid(this.state.id);
                 console.log(res);
                 if ( res === true ) {
                     clearInterval(checking);
