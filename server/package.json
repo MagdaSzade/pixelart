@@ -5,7 +5,8 @@
   "description": "server side for creating pixel art",
   "main": "index.js",
   "scripts": {
-    "test": "nodemon index.js"
+    "start": "nodemon index.js",
+    "test": "jest"
   },
   "author": "Magdalena Szade",
   "repository": {
@@ -21,7 +22,11 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.8.9",
+    "node-fetch": "^2.6.0",
     "nodemailer": "^6.4.6",
     "nodemon": "^2.0.2"
+  },
+  "devDependencies": {
+    "jest": "^26.1.0"
   }
 }

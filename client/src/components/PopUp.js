@@ -8,7 +8,7 @@ import '../styles/popup.css';
 class PopUp extends React.Component {
     state = {
         isFacebook: false,
-        id: null,
+        id: '5f0f52155e76773a3011252c',
         isPayed: false
     }
 
@@ -23,7 +23,8 @@ class PopUp extends React.Component {
             const startPointX = parseInt(pixel.key.substring(2)) * 10;
             ctx.fillRect(startPointX, startPointY, 10, 10);
         });
-        this.saveToDatabase();
+        //this.saveToDatabase();
+        this.checkIfPayed();
     }
 
     saveToDatabase = async () => {
