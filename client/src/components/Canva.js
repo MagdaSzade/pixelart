@@ -1,47 +1,37 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import Pixel from './Pixel';
+import { setPixels } from '../actions';
+
+import { indexOfPixel, createWhiteBoard } from '../helpers/key';
 
 class Canva extends React.Component {
     state = {
-        pixels: [],
         width: 0,
         height: 0
     }
 
     componentDidMount() {
-        let pixels = this.createWhiteBoard(this.props.height, this.props.width);
-        this.setState({ width: this.props.width, height: this.props.height, pixels: pixels });
+        this.setState({ width: this.props.width, height: this.props.height });
     }
 
     componentDidUpdate() {
         if (this.props.width !== this.state.width || this.props.height !== this.state.height) {
-            const newPixels = this.createWhiteBoard(this.props.height, this.props.width);
+            const newPixels = createWhiteBoard(this.props.height, this.props.width);
             newPixels.forEach(pixel => {
-                const index = this.state.pixels.findIndex((element) => { return element.key === pixel.key});
+                const index = this.props.pixels.findIndex((element) => { return element.key === pixel.key});
                 if ( index !== -1 ) {
-                    pixel.color = this.state.pixels[index].color
+                    pixel.color = this.props.pixels[index].color
                 }
             });
-            this.setState({ width: this.props.width, height: this.props.height, pixels: newPixels });
+            this.setState({ width: this.props.width, height: this.props.height });
+            this.props.setPixels(newPixels);
         }
-        if (this.props.sendArtState) {
-            this.props.sendArt(this.state.pixels);
-        }
-    }
-
-    createWhiteBoard = (height, width) => {
-        let whiteBoard = [];
-        for (let i = 0; i < height * width; i++) {
-            const key = this.indexToKey(i);
-            const pixel = { color: 'white', key: key };
-            whiteBoard.push(pixel);
-        }
-        return whiteBoard;
     }
 
     createCanva = () => {
-        return this.state.pixels.map((pixel) => {       
+        return this.props.pixels.map((pixel) => {       
             return (
                 <Pixel 
                     key={pixel.key} 
@@ -52,45 +42,16 @@ class Canva extends React.Component {
             )
         });        
     }
-
-    indexToKey(index) {
-        const width = (index)%this.props.width;
-        const height = Math.floor(index/this.props.width);
-        const key = this.createKey(height, width);
-        return key;
-    }
-
-    createKey(height, width) {
-        let key = "";
-        if (height < 10) {
-            key += "0" + height;
-        } else {
-            key += height;
-        }
-        if (width < 10) {
-            key += "0" + width;
-        } else {
-            key += width;
-        }
-        return key;
-    }
     
     onChangeColor = (pixelRef) => {
-        const index = this.indexOfPixel(pixelRef.current.id);
-        const newPixels = this.state.pixels.map((pixel, i) => {
+        const index = indexOfPixel(pixelRef.current.id, this.props.width);
+        const newPixels = this.props.pixels.map((pixel, i) => {
             if (i === index) {
                 return { color: this.props.selectedColor, key: pixel.key };
             }
             return pixel;
         })
-        this.setState({ pixels: newPixels });
-    }
-
-    indexOfPixel(pixelId) {
-        const height = parseInt(pixelId.substring(0, 2));
-        const width = parseInt(pixelId.substring(2));
-        const index = height * this.props.width + width;
-        return index;
+        this.props.setPixels(newPixels);
     }
 
     render() {
@@ -106,4 +67,13 @@ class Canva extends React.Component {
     }
 }
 
-export default Canva;
+const mapStateToProps = state => {
+    return {
+        width: state.size.width,
+        height: state.size.height,
+        pixels: state.pixels,
+        selectedColor: state.selectedColor
+    }
+}
+
+export default connect(mapStateToProps, { setPixels })(Canva);

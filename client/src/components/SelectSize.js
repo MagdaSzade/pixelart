@@ -1,25 +1,26 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
+import { selectSize } from '../actions';
 
 class SelectSize extends React.Component {
     state = {
-        width: 5,
-        height: 5
-    };
+        height: this.props.height,
+        width: this.props.width
+    }
 
     onHeightChange = event => {
-        this.setState({height: event.target.value});
+        this.setState({height: parseInt(event.target.value)});
     };
 
+    
     onWidthChange = event => {
-        this.setState({width: event.target.value});
+        this.setState({width: parseInt(event.target.value)});
     };
 
     onSizeChange = event => {
         event.preventDefault();
-        this.props.onSelectSize({
-            width: this.state.width,
-            height: this.state.height
-        })
+        this.props.selectSize(this.state.width, this.state.height);
     }
 
     render() {
@@ -57,4 +58,11 @@ class SelectSize extends React.Component {
     }
 }
 
-export default SelectSize;  
+const mapStateToProps = props => {
+    return {
+        width: props.size.width,
+        height: props.size.height
+    }
+}
+
+export default connect(mapStateToProps, { selectSize })(SelectSize);  

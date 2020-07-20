@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import Button from './Button';
 import { sendArt, checkIfPaid } from '../api/database'
@@ -13,16 +14,16 @@ class PopUp extends React.Component {
     }
 
     componentDidMount() {
+        console.log(this.props.pixels);
         const canvas = document.getElementById("myCanvas");
         const ctx = canvas.getContext("2d");
-        this.props.pixels.forEach((pixel, index) => {
-            ctx.fillStyle = pixel.color;
+        this.props.pixels.forEach((pixel) => {
+            ctx.fillStyle =  pixel.color;
             const startPointY = parseInt(pixel.key.substring(0, 2)) * 10;
             const startPointX = parseInt(pixel.key.substring(2)) * 10;
             ctx.fillRect(startPointX, startPointY, 10, 10);
         });
         //this.saveToDatabase();
-        this.checkIfPaid();
     }
 
     saveToDatabase = async () => {
@@ -92,4 +93,12 @@ class PopUp extends React.Component {
     }
 };
 
-export default PopUp;
+const mapStateToProps = state => {
+    return {
+        width: state.size.width,
+        height: state.size.height,
+        pixels: state.pixels
+    }
+}
+
+export default connect(mapStateToProps)(PopUp);

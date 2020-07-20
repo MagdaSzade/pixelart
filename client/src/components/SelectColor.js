@@ -1,24 +1,22 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import Pixel from './Pixel';
+import { selectColor } from '../actions';
 
 import "../styles/selectColor.css";
 
 
 class SelectColor extends React.Component {
-    state = {
-        selectedColor: "black",
-        colorsToSelect: ["red", "green", "yellow", "black", "blue", "purple", "orange", "white"]
-    }
+    colorsToSelect = ["red", "green", "yellow", "black", "blue", "purple", "orange", "white"]
 
     onSelectColor = (pixelRef) => {
-        this.setState({ selectedColor: pixelRef.current.style.backgroundColor });
-        this.props.onSelectColor(this.state.selectedColor);
+        this.props.selectColor(pixelRef.current.style.backgroundColor);
     }
 
     allColorToSelect() {
         return (
-            this.state.colorsToSelect.map(color => {
+            this.colorsToSelect.map(color => {
                 return (
                     <Pixel 
                         style={{backgroundColor: color}} 
@@ -35,7 +33,7 @@ class SelectColor extends React.Component {
             <div className="select-color grid">
                 <div className="selected-color flex">
                     <div className="selected-color-text">Wybrany kolor</div>
-                    <Pixel style={{backgroundColor: this.state.selectedColor}}/>
+                    <Pixel style={{backgroundColor: this.props.selectedColor}}/>
                 </div>
                 <div className="colors-to-select flex">
                     {this.allColorToSelect()}
@@ -45,4 +43,10 @@ class SelectColor extends React.Component {
     }
 }
 
-export default SelectColor;
+const mapStateToProps = state => {
+    return {
+        selectedColor: state.selectedColor
+    }
+}
+
+export default connect(mapStateToProps, { selectColor })(SelectColor);
