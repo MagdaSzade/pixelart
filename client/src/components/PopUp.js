@@ -12,8 +12,6 @@ class PopUp extends React.Component {
         isPaid: false
     }
 
- 
-
     componentDidMount() {
         const canvas = document.getElementById("myCanvas");
         const ctx = canvas.getContext("2d");
