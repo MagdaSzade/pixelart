@@ -43,12 +43,20 @@ isPaid = async (req, res) => {
     } catch (err) {
         res.status(400).send();
     }
-    
-    
 }, 
 
 getArt = async (req, res) => {
-
+    console.log(req.params.id);
+    try {
+        const art = await Art.findById(req.params.id);
+        console.log(art);
+            if (art.isPaid) {
+                return res.status(200).json(art).send();
+            } 
+            res.status(400).send();
+    } catch (err) {
+        res.status(400).send();
+    }
 };
 
 module.exports = {

@@ -1,10 +1,11 @@
 const express = require('express');
-const { saveArt, isPayed, getArt } = require('../controllers/artCtrl');
+const { saveArt, isPaid, getArt } = require('../controllers/artCtrl');
 
 const router = express();
 
 router.post('/saveArt', saveArt);
-router.get('/isPayed/:id', isPayed)
-router.get('/:id', getArt);
+router.get('/isPaid/:id', isPaid);
+router.get('/find/:id', getArt);
+
 
 module.exports = router;

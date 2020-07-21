@@ -2,28 +2,19 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Button from './Button';
-import { sendArt, checkIfPaid } from '../api/database'
+import Display from './Display';
+import { BaseURLFacebook, sendArt, checkIfPaid } from '../api/database';
 
 import '../styles/popup.css';
 
 class PopUp extends React.Component {
     state = {
-        isFacebook: false,
-        id: '5f0f52155e76773a3011252c',
-        isPaid: false
+        id: null,
+        isPaid: false,
     }
 
     componentDidMount() {
-        console.log(this.props.pixels);
-        const canvas = document.getElementById("myCanvas");
-        const ctx = canvas.getContext("2d");
-        this.props.pixels.forEach((pixel) => {
-            ctx.fillStyle =  pixel.color;
-            const startPointY = parseInt(pixel.key.substring(0, 2)) * 10;
-            const startPointX = parseInt(pixel.key.substring(2)) * 10;
-            ctx.fillRect(startPointX, startPointY, 10, 10);
-        });
-        //this.saveToDatabase();
+        this.saveToDatabase();
     }
 
     saveToDatabase = async () => {
@@ -40,8 +31,8 @@ class PopUp extends React.Component {
         if ( !this.state.isPaid ) {
             var checking = setInterval(async () => {
                 let res = await checkIfPaid(this.state.id);
-                console.log(res);
                 if ( res === true ) {
+                    this.setState({ isPaid: true });
                     clearInterval(checking);
                 }
             }, 1000);
@@ -50,17 +41,17 @@ class PopUp extends React.Component {
     
 
     openPortal = async () => {
-        const win = window.open( 'https://www.siepomaga.pl/skarbonki/pixelart/koszyk/dodaj');
+        const win = window.open('https://www.siepomaga.pl/skarbonki/pixelart/koszyk/dodaj');
         win.focus();
     }
 
 
 
     isFacebookAvailable() {
-        if (this.state.isFacebook) {
+        if (this.state.isPaid) {
             return (
                 <iframe 
-                    src="https://www.facebook.com/plugins/share_button.php?href=http%3A%2F%2Fwww.google.com%2F&layout=button&size=large&width=107&height=28&appId"
+                    src={`https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2F${BaseURLFacebook}/${this.state.id}&layout=button&size=large&width=77&height=28&appId`}
                     title="facebook-share-button"
                     width="107" 
                     height="28" 
@@ -76,15 +67,11 @@ class PopUp extends React.Component {
         return (
             <div className="popup-out" onClick={this.props.closePopUp}>
                 <div className="popup-in">
-                    <div className="art">
-                        <canvas className="solid-border" id="myCanvas" width={this.props.width*10} height={this.props.height*10}></canvas>
-                    </div>
+                    <Display pixels={this.props.pixels} width={this.props.width} height={this.props.height} />
                     <div className="summary">
-                        Aby udostępnić swój pixelart na facebooku zapłać cokolwiek na skarbonkę dla Sandry.
+                        Aby udostępnić swój pixelart na facebooku zapłać cokolwiek na skarbonkę Sandry.
+                        W polu słowa wsparcia wpisz: {this.state.id}
                         <Button onButtonClick={this.openPortal} text="wpłać"/>
-                        <a href="result.html">
-                            <Button  text="przejdź"/>
-                        </a>
                     </div>
                     {this.isFacebookAvailable()}
                 </div>

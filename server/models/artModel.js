@@ -10,7 +10,7 @@ const Art = mongoose.model("Art", new mongoose.Schema({
         type: Number,
         required: true
     },
-    isPayed: {
+    isPaid: {
         type: Boolean,
         default: false
     }

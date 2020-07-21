@@ -12,10 +12,37 @@ import Canva from './Canva';
 import FooterBar from './FooterBar';
 import Button from './Button';
 import PopUp from './PopUp';
+import Result from './Result';
 
 import '../styles/app.css';
 
 class App extends React.Component {
+    state = {
+        result: false
+    };
+
+    onResult = () => {
+        this.setState({ result: !this.state.result })
+    }
+    
+    content = () => {
+        if (this.state.result) {
+            return <PopUp />
+        } else {
+            return (
+                <div>
+                    <div className="grid">
+                        <SelectSize />
+                        <SelectColor />
+                    </div>
+                    <div>
+                        <Canva />
+                    </div>
+                    <Button onButtonClick={this.onResult} text="zapisz"/>
+                </div>
+            )
+        }
+    }
 
     render() {
         return (
@@ -23,21 +50,9 @@ class App extends React.Component {
                 <div className="app-conteiner flex">
                     <HeaderBar />
                     <Switch>
-                        <Route path="/result">
-                            <PopUp />
-                        </Route>
-                        <Route path="/:id">
-                            DUPA
-                        </Route>
+                        <Route path="/:id" component={Result} />
                         <Route path="/">
-                            <div className="grid">
-                                <SelectSize />
-                                <SelectColor />
-                            </div>
-                            <Canva />
-                            <a href="/result">
-                                <Button text="zapisz"/>
-                            </a>
+                            {this.content()}
                         </Route>
                     </Switch>
                     <FooterBar />

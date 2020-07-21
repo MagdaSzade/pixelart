@@ -22,7 +22,6 @@ const sizeReducer = (size = { width: 10, height: 10 }, action) => {
 }
 
 const pixelsReducer = (pixels = createWhiteBoard(10, 10), action) => {
-    console.log(pixels);
     switch (action.type) {
         case ("PIXELS"):
             return action.payload;

@@ -1,7 +1,9 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 const db = require('./db');
 const artRouter = require("./routes/art");
+
 
 const app = express();
 
@@ -11,10 +13,13 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 app.use(cors());
 app.use(express.json());
-app.get('/', (req, res) => {
-    res.send('Hello World from backend !')
-});
+
+app.use(express.static(path.join(__dirname, 'build')));
 
 app.use('/api/art', artRouter);
+app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'))
+})
+
 
 app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`));

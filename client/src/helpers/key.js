@@ -10,6 +10,16 @@ export const createWhiteBoard = (height, width) => {
     return whiteBoard;
 }
 
+export const createGivenBoard =  (pixels, width) => {
+    let board = [];
+    for (let i = 0; i < pixels.length; i++) {
+        const key = indexToKey(i, width);
+        const pixel = { color: pixels[i], key: key };
+        board.push(pixel);
+    }
+    return board;
+}
+
 export const indexToKey = (index, maxWidth) => {
     const width = (index)%maxWidth;
     const height = Math.floor(index/maxWidth);
