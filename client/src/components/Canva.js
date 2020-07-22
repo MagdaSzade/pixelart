@@ -6,6 +6,8 @@ import { setPixels } from '../actions';
 
 import { indexOfPixel, createWhiteBoard } from '../helpers/key';
 
+import '../styles/canva.css'
+
 class Canva extends React.Component {
     state = {
         width: 0,
@@ -56,13 +58,15 @@ class Canva extends React.Component {
 
     render() {
         return (
+            <div className='canva-conteiner'>
                 <div 
                     className="canva grid"
                     id="canva"
-                    style={{gridTemplateColumns: `repeat(${this.props.width}, 1fr)`}}
+                    style={{gridTemplateColumns: `repeat(${this.props.width}, 15px)`}}
                 >
                     {this.createCanva()}
                 </div>
+            </div>
         )
     }
 }

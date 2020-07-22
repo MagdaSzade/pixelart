@@ -22,7 +22,7 @@
 }
 
 .grid {
-    display: grid;
+    display: inline-grid;
     justify-items: center;
     align-items: center;
 }
