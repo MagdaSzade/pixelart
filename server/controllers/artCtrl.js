@@ -20,6 +20,18 @@ saveArt = async (req, res) => {
         } catch(err) {
             return res.status(500).send(err.massage[0]);
         }
+        setTimeout( async () => {
+            const artTemp = await Art.findById(art._id);
+            console.log("ognia!")
+            if (!artTemp.isPaid) {
+                console.log("delete");
+                try {
+                    await Art.findByIdAndDelete(artTemp._id);
+                } catch (err) {
+                    console.log(err.massage);
+                }
+            }
+        }, 600000);
         return res.status(201).send(art);
     } return res.status(400).send();
 }, 
@@ -44,6 +56,7 @@ isPaid = async (req, res) => {
         res.status(400).send();
     }
 }, 
+
 
 getArt = async (req, res) => {
     console.log(req.params.id);
