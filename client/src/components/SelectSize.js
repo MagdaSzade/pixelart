@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 
 import { selectSize } from '../actions';
 
+import '../styles/selectSize.css'
+
 class SelectSize extends React.Component {
     state = {
         height: this.props.height,
@@ -27,31 +29,34 @@ class SelectSize extends React.Component {
         return(
             <div className="select-size">
                 <form onSubmit={this.onSizeChange}>
-                    <label htmlFor="height">Wysokość</label>
-                    <input
-                        type="number"
-                        id="height"
-                        name="height"
-                        min="5"
-                        max="20"
-                        value={this.state.height}
-                        onChange={this.onHeightChange}
-                    />
-                    <label htmlFor="width">Szerokość</label>
-                    <input
-                        type="number"
-                        id="width"
-                        name="width"
-                        min="5"
-                        max="20"
-                        value={this.state.width}
-                        onChange={this.onWidthChange}
-                    />
+                    <div className="grid inputs">
+                        <label htmlFor="height">Wysokość</label>
+                        <input
+                            type="number"
+                            id="height"
+                            name="height"
+                            min="5"
+                            max="15"
+                            value={this.state.height}
+                            onChange={this.onHeightChange}
+                        />
+                        <label htmlFor="width">Szerokość</label>
+                        <input
+                            type="number"
+                            id="width"
+                            name="width"
+                            min="5"
+                            max="15"
+                            value={this.state.width}
+                            onChange={this.onWidthChange}
+                        />
+                    </div>
                     <input 
                         type="submit"
                         value="zmień" 
                         className='button thin-border' >
                     </input>
+                    
                 </form>    
             </div>
         )

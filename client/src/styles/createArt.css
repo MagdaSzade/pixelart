@@ -1,0 +1,10 @@
+.create-art button {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.create-art .canva-conteiner {
+    display: block;
+    text-align: center
+}

@@ -1,10 +1,15 @@
 .selected-color {
+    font-size: 1rem;
     justify-content: center;
     align-items: center;
 }
 
 .colors-to-select {
     margin-top: 5px;
+}
+
+.select-color {
+    margin: 0.5rem 0 1rem 0;
 }
 
 .select-color .pixel {

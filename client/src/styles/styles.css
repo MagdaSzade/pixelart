@@ -2,6 +2,7 @@
     font-family: 'Kreon', serif;
     background-color: var(--main-background-color);
     letter-spacing: 0.07em;
+    font-size: 12px;
     --main-background-color: #303030;
     --components-background-color: #272727;
     --main-detail-color: #14A76C;
@@ -14,6 +15,7 @@
 
 .solid-border {
     border: solid 2px var(--main-detail-color);
+    border-radius: 10px;
 }
 
 .thin-border {

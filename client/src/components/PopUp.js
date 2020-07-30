@@ -8,8 +8,12 @@ import { BaseURLFacebook, sendArt, checkIfPaid } from '../api/database';
 import '../styles/popup.css';
 
 class PopUp extends React.Component {
+    constructor(props) {
+        super(props);
+        this.idAreaRef = React.createRef();
+    }
     state = {
-        id: null,
+        id: "",
         isPaid: false,
     }
 
@@ -35,17 +39,14 @@ class PopUp extends React.Component {
                     this.setState({ isPaid: true });
                     clearInterval(checking);
                 }
-            }, 1000);
+            }, 60000);
         };
     } 
     
-
     openPortal = async () => {
         const win = window.open('https://www.siepomaga.pl/skarbonki/pixelart/koszyk/dodaj');
         win.focus();
     }
-
-
 
     isFacebookAvailable() {
         if (this.state.isPaid) {
@@ -63,6 +64,11 @@ class PopUp extends React.Component {
         }
     }
 
+    copyId = () => {
+        this.idAreaRef.current.select();
+        document.execCommand('copy');
+    }
+
     render() {
         return (
             <div className="popup-out" onClick={this.props.closePopUp}>
@@ -70,8 +76,15 @@ class PopUp extends React.Component {
                     <Display pixels={this.props.pixels} width={this.props.width} height={this.props.height} />
                     <div className="summary">
                         Aby udostępnić swój pixelart na facebooku zapłać cokolwiek na skarbonkę Sandry.
-                        W polu słowa wsparcia wpisz: {this.state.id}
-                        <Button onButtonClick={this.openPortal} text="wpłać"/>
+                        W polu słowa wsparcia wpisz:
+                        <br />
+                        <input 
+                            ref={this.idAreaRef}
+                            type="text"
+                            value={this.state.id}
+                            readOnly="readOnly" />
+                        <Button onButtonClick={this.copyId} text="Skopiuj ID" /> 
+                        <Button onButtonClick={this.openPortal} text="wpłać" />
                     </div>
                     {this.isFacebookAvailable()}
                 </div>

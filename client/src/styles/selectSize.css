@@ -1,0 +1,11 @@
+.select-size {
+    margin: 1rem 0 0.5rem 0;
+}
+
+.inputs {
+    grid-template-columns: auto auto;
+}
+
+.inputs label {
+    padding: 0.5rem;
+}
