@@ -12,6 +12,7 @@ class PopUp extends React.Component {
         super(props);
         this.idAreaRef = React.createRef();
     }
+
     state = {
         id: "",
         isPaid: false,
@@ -35,59 +36,66 @@ class PopUp extends React.Component {
         if ( !this.state.isPaid ) {
             var checking = setInterval(async () => {
                 let res = await checkIfPaid(this.state.id);
+                console.log(res);
                 if ( res === true ) {
                     this.setState({ isPaid: true });
                     clearInterval(checking);
                 }
             }, 60000);
         };
-    } 
-    
-    openPortal = async () => {
-        const win = window.open('https://www.siepomaga.pl/skarbonki/pixelart/koszyk/dodaj');
-        win.focus();
-    }
-
-    isFacebookAvailable() {
-        if (this.state.isPaid) {
-            return (
-                <iframe 
-                    src={`https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2F${BaseURLFacebook}/${this.state.id}&layout=button&size=large&width=77&height=28&appId`}
-                    title="facebook-share-button"
-                    width="107" 
-                    height="28" 
-                    style={{border:'none', overflow:'hidden'}} scrolling="no" 
-                    frameBorder="0"
-                    allow="encrypted-media">
-                </iframe>
-            )
-        }
     }
 
     copyId = () => {
         this.idAreaRef.current.select();
         document.execCommand('copy');
     }
+    
+    openPortal = async () => {
+        const win = window.open('https://www.siepomaga.pl/skarbonki/pixelart/koszyk/dodaj');
+        win.focus();
+    }
+
+    facebookAvailable() {
+        return (
+            <iframe 
+                src={`https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2F${BaseURLFacebook}/${this.state.id}&layout=button&size=large&width=77&height=28&appId`}
+                title="facebook-share-button"
+                width="107" 
+                height="28" 
+                style={{border:'none', overflow:'hidden'}} scrolling="no" 
+                frameBorder="0"
+                allow="encrypted-media">
+            </iframe>
+        )
+    }
+
+    textDisplay() {
+        return (
+            <div className="summary">
+                <p>
+                    Aby udostępnić swój pixelart na facebooku zapłać cokolwiek na skarbonkę Sandry.
+                    W polu słowa wsparcia wpisz:
+                </p>
+                <input 
+                    ref={this.idAreaRef}
+                    type="text"
+                    value={this.state.id}
+                    readOnly="readOnly" />
+                <Button onButtonClick={this.copyId} text="Skopiuj ID" /> 
+                <Button onButtonClick={this.openPortal} text="wpłać" />
+            </div>
+        )
+    }
+
+    whatToDisplay() {
+        return (this.state.isPaid) ? this.facebookAvailable() : this.textDisplay();
+    }
 
     render() {
         return (
-            <div className="popup-out" onClick={this.props.closePopUp}>
-                <div className="popup-in">
-                    <Display pixels={this.props.pixels} width={this.props.width} height={this.props.height} />
-                    <div className="summary">
-                        Aby udostępnić swój pixelart na facebooku zapłać cokolwiek na skarbonkę Sandry.
-                        W polu słowa wsparcia wpisz:
-                        <br />
-                        <input 
-                            ref={this.idAreaRef}
-                            type="text"
-                            value={this.state.id}
-                            readOnly="readOnly" />
-                        <Button onButtonClick={this.copyId} text="Skopiuj ID" /> 
-                        <Button onButtonClick={this.openPortal} text="wpłać" />
-                    </div>
-                    {this.isFacebookAvailable()}
-                </div>
+            <div className="popup">
+                <Display pixels={this.props.pixels} width={this.props.width} height={this.props.height} />
+                {this.whatToDisplay()}
             </div>
         )
     }

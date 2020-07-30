@@ -24,7 +24,7 @@ class Result extends React.Component {
         return (
             <div>
                 <div>
-                    <h3>Zobacz mój pixel art!</h3>
+                    <p>Zobacz mój pixel art!</p>
                 </div>
                 <Display 
                     pixels={this.state.pixels}
@@ -32,7 +32,7 @@ class Result extends React.Component {
                     height={this.state.height}
                 />
                 <div>
-                    <h2>Spróbuj narysować coś swojego:</h2>
+                    <p>Spróbuj narysować coś swojego.</p>
                     <a href="/">
                         <Button text="Narysuj"/>
                     </a>

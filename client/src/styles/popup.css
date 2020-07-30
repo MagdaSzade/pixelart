@@ -1,28 +1,17 @@
-.popup-out {
-    position: fixed;  
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0; 
-    right: 0; 
-    bottom: 0;
-    margin: auto;
-    background-color: rgba(0,0,0, 0.7);
-    z-index: 1;
+.summary p {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 0.9rem;
 }
 
-.popup-in {
-    position: absolute;  
-    width: 50%;
-    height: 30%;
-    top: 0; 
-    right: 0; 
-    bottom: 0; 
-    left: 0; 
-    margin: auto;
-    padding: 20px 20px;
-    border: 2px var(--border-detail-color) solid;
-    border-radius: 15px; 
-    background: var(--main-background-color);
+.summary input {
+    font-size: 0.8rem;
+    font-family: 'Kreon', serif;
+    letter-spacing: 0.07rem;
+    background-color: var(--components-background-color);
+    border: none;
     color: var(--main-detail-color);
+    width: 40%;
+    text-align: center;
 }
