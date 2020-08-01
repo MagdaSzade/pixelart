@@ -22,9 +22,7 @@ saveArt = async (req, res) => {
         }
         setTimeout( async () => {
             const artTemp = await Art.findById(art._id);
-            console.log("ognia!")
             if (!artTemp.isPaid) {
-                console.log("delete");
                 try {
                     await Art.findByIdAndDelete(artTemp._id);
                 } catch (err) {
@@ -34,16 +32,19 @@ saveArt = async (req, res) => {
         }, 600000);
         return res.status(201).send(art);
     } return res.status(400).send();
-}, 
+}; 
 
 isPaid = async (req, res) => {
+    console.log("hallo")
     try {
         const art = await Art.findById(req.params.id);
-        console.log(art);
+            if (art.isPaid) {
+                console.log(art.isPaid);
+                return res.status(200).json({ isPaid: art.isPaid}).send();
+            }
             if (art) {
                 const isPaid = 
                     { isPaid: await scrapeId(req.params.id) };
-                console.log(isPaid);
                 res.status(200).json(isPaid).send();
                 if (isPaid.isPaid === true) {
                     art.isPaid = true;
@@ -55,7 +56,7 @@ isPaid = async (req, res) => {
     } catch (err) {
         res.status(400).send();
     }
-}, 
+};
 
 
 getArt = async (req, res) => {
@@ -76,4 +77,4 @@ module.exports = {
     saveArt,
     isPaid,
     getArt,
-}
+};
