@@ -4,7 +4,7 @@ import SelectSize from './SelectSize';
 import SelectColor from './SelectColor';
 import Canva from './Canva';
 import Button from './Button';
-import PopUp from './PopUp';
+import ShareArt from './ShareArt';
 
 import '../styles/createArt.css'
 
@@ -20,7 +20,7 @@ class  CreateArt extends React.Component {
 
     content = () => {
         if (this.state.result) {
-            return <PopUp />
+            return <ShareArt />
         } else {
             return (
                 <div className="create-art">

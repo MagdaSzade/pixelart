@@ -5,9 +5,9 @@ import Button from './Button';
 import Display from './Display';
 import { BaseURLFacebook, sendArt, checkIfPaid } from '../api/database';
 
-import '../styles/popup.css';
+import '../styles/shareArt.css';
 
-class PopUp extends React.Component {
+class ShareArt extends React.Component {
     constructor(props) {
         super(props);
         this.idAreaRef = React.createRef();
@@ -93,7 +93,7 @@ class PopUp extends React.Component {
 
     render() {
         return (
-            <div className="popup">
+            <div className="share-art">
                 <Display pixels={this.props.pixels} width={this.props.width} height={this.props.height} />
                 {this.whatToDisplay()}
             </div>
@@ -109,4 +109,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(PopUp);
+export default connect(mapStateToProps)(ShareArt);

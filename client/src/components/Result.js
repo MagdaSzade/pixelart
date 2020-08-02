@@ -16,7 +16,6 @@ class Result extends React.Component {
         const response = await getArt(this.props.match.params.id);
         const board = createGivenBoard(response.pixels, response.width);
         const height = response.pixels.length/response.width;
-        console.log(height, response.width)
         this.setState({ pixels: board, width: response.width, height: height });
     }
 
