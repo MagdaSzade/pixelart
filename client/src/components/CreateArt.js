@@ -1,10 +1,10 @@
 import React from 'react';
 
-import SelectSize from './SelectSize';
-import SelectColor from './SelectColor';
-import Canva from './Canva';
-import Button from './Button';
-import ShareArt from './ShareArt';
+import SelectSize from './createArtCanva/SelectSize';
+import SelectColor from './createArtCanva/SelectColor';
+import Canva from './createArtCanva/Canva';
+import Button from './common/Button';
+import ShareArt from './ShareArt/ShareArt';
 
 import '../styles/createArt.css'
 

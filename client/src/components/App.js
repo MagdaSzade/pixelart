@@ -5,9 +5,9 @@ import {
     Route
   } from "react-router-dom";
 
-import HeaderBar from './HeaderBar';
-import FooterBar from './FooterBar';
-import Result from './Result';
+import HeaderBar from './common/HeaderBar';
+import FooterBar from './common/FooterBar';
+import Result from './result/Result';
 import CreateArt from './CreateArt';
 
 import '../styles/styles.css';

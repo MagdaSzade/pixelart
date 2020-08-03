@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { selectSize } from '../actions';
+import { selectSize } from '../../actions';
 
-import '../styles/selectSize.css'
+import '../../styles/selectSize.css'
 
 class SelectSize extends React.Component {
     state = {

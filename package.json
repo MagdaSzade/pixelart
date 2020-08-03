@@ -1,0 +1,14 @@
+{
+  "name": "pixelartbackend",
+  "version": "1.1.0",
+  "description": "app to create pixelarts",
+  "main": "index.js",
+  "author": "Magdalena Szade",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MagdaSzade/pixelart"
+  },
+"scripts": {
+    "start": "node server/index.js"
+}
+}

@@ -1,9 +1,9 @@
 import React from 'react';
 
-import Display from './Display';
-import Button from './Button';
-import { getArt } from '../api/database';
-import { createGivenBoard } from '../helpers/key';
+import Display from '../common/Display';
+import Button from '../common/Button';
+import { getArt } from '../../api/database';
+import { createGivenBoard } from '../../helpers/key';
 
 class Result extends React.Component {
     state = {

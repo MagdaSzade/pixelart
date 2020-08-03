@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Pixel from './Pixel';
-import { selectColor } from '../actions';
+import Pixel from '../common/Pixel';
+import { selectColor } from '../../actions';
 
-import "../styles/selectColor.css";
+import "../../styles/selectColor.css";
 
 
 class SelectColor extends React.Component {

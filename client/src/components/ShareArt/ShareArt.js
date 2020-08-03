@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Button from './Button';
-import Display from './Display';
-import { BaseURLFacebook, sendArt, checkIfPaid } from '../api/database';
+import Button from '../common/Button';
+import Display from '../common/Display';
+import { BaseURLFacebook, sendArt, checkIfPaid } from '../../api/database';
 
-import '../styles/shareArt.css';
+import '../../styles/shareArt.css';
 
 class ShareArt extends React.Component {
     constructor(props) {

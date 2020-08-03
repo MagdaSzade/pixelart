@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Pixel from './Pixel';
-import { setPixels } from '../actions';
+import Pixel from '../common/Pixel';
+import { setPixels } from '../../actions';
 
-import { indexOfPixel, createWhiteBoard } from '../helpers/key';
+import { indexOfPixel, createWhiteBoard } from '../../helpers/key';
 
-import '../styles/canva.css'
+import '../../styles/canva.css'
 
 class Canva extends React.Component {
     state = {

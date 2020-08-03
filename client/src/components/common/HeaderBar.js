@@ -1,6 +1,6 @@
 import React from 'react';
 
-import '../styles/headerBar.css'
+import '../../styles/headerBar.css'
 
 const HeaderBar = ({ showPopUp }) => {
     return (
