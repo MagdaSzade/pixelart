@@ -12,6 +12,15 @@ const selectedColorReducer = (selectedColor = "red", action) => {
     }
 }
 
+const shouldClearReducer = (shouldClear = false, action) => {
+    switch (action.type) {
+        case "SHOULD_CLEAR":
+            return action.payload;
+        default:
+            return shouldClear;
+    }
+}
+
 const sizeReducer = (size = { width: 10, height: 10 }, action) => {
     switch (action.type) {
         case ("SELECT_SIZE"):
@@ -35,4 +44,5 @@ export default combineReducers({
     selectedColor: selectedColorReducer,
     size: sizeReducer,
     pixels: pixelsReducer,
+    clear: shouldClearReducer
 });

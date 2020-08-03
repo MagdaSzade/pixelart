@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { selectSize } from '../../actions';
+import { selectSize, clearCanva } from '../../actions';
+
+import Button from '../common/Button';
 
 import '../../styles/selectSize.css'
 
@@ -25,6 +27,10 @@ class SelectSize extends React.Component {
         this.props.selectSize(this.state.width, this.state.height);
     }
 
+    onClear = () => {
+        this.props.clearCanva(true);
+    }
+
     render() {
         return(
             <div className="select-size">
@@ -40,6 +46,7 @@ class SelectSize extends React.Component {
                             value={this.state.height}
                             onChange={this.onHeightChange}
                         />
+                        <Button onButtonClick={this.onSizeChange} text="zmień"/>
                         <label htmlFor="width">Szerokość</label>
                         <input
                             type="number"
@@ -50,14 +57,9 @@ class SelectSize extends React.Component {
                             value={this.state.width}
                             onChange={this.onWidthChange}
                         />
+                        <Button onButtonClick={this.onClear} text="wyczyść"/>
                     </div>
-                    <input 
-                        type="submit"
-                        value="zmień" 
-                        className='button thin-border' >
-                    </input>
-                    
-                </form>    
+                </form> 
             </div>
         )
     }
@@ -70,4 +72,4 @@ const mapStateToProps = props => {
     }
 }
 
-export default connect(mapStateToProps, { selectSize })(SelectSize);  
+export default connect(mapStateToProps, { selectSize, clearCanva })(SelectSize);  

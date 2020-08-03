@@ -3,9 +3,13 @@
 }
 
 .inputs {
-    grid-template-columns: auto auto;
+    grid-template-columns: auto auto auto;
 }
 
 .inputs label {
     padding: 0.5rem;
+}
+
+.inputs .button {
+    margin: 0.5rem;
 }

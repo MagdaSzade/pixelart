@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Pixel from '../common/Pixel';
-import { setPixels } from '../../actions';
+import { setPixels, clearCanva } from '../../actions';
 
 import { indexOfPixel, createWhiteBoard } from '../../helpers/key';
 
@@ -19,6 +19,12 @@ class Canva extends React.Component {
     }
 
     componentDidUpdate() {
+        if(this.props.clear) {
+            const newPixels = createWhiteBoard(this.props.height, this.props.width);
+            this.props.setPixels(newPixels);
+            this.setState({ width: this.props.width, height: this.props.height });
+            this.props.clearCanva(false);
+        }
         if (this.props.width !== this.state.width || this.props.height !== this.state.height) {
             const newPixels = createWhiteBoard(this.props.height, this.props.width);
             newPixels.forEach(pixel => {
@@ -27,8 +33,8 @@ class Canva extends React.Component {
                     pixel.color = this.props.pixels[index].color
                 }
             });
-            this.setState({ width: this.props.width, height: this.props.height });
             this.props.setPixels(newPixels);
+            this.setState({ width: this.props.width, height: this.props.height });
         }
     }
 
@@ -62,7 +68,7 @@ class Canva extends React.Component {
                 <div 
                     className="canva grid"
                     id="canva"
-                    style={{gridTemplateColumns: `repeat(${this.props.width}, 15px)`}}
+                    style={{gridTemplateColumns: `repeat(${this.props.width}, 20px)`}}
                 >
                     {this.createCanva()}
                 </div>
@@ -76,8 +82,9 @@ const mapStateToProps = state => {
         width: state.size.width,
         height: state.size.height,
         pixels: state.pixels,
+        clear: state.clear,
         selectedColor: state.selectedColor
     }
 }
 
-export default connect(mapStateToProps, { setPixels })(Canva);
+export default connect(mapStateToProps, { setPixels, clearCanva })(Canva);

@@ -8,11 +8,18 @@ export const selectColor = (color) => {
 export const selectSize = (width, height) => {
     const payload = {
         width: width, 
-        height: height, 
+        height: height,
     }
     return {
         type: "SELECT_SIZE",
         payload: payload
+    }
+}
+
+export const clearCanva = (shouldClear) => {
+    return {
+        type: "SHOULD_CLEAR",
+        payload: shouldClear
     }
 }
 
