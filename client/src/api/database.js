@@ -3,7 +3,7 @@ import axios from 'axios';
 
 //export const baseURL = 'https://pixelartagainstsma.herokuapp.com/api/art';
 export const baseURL = 'http://localhost:9090/api/art';
-export const BaseURLFacebook = 'pixelartagainstsma.herokuapp.com/';
+export const BaseURLFacebook = 'pixelartagainstsma.herokuapp.com';
 
 export const sendArt = async (pixels, width) => {
     const response = await axios.post(`${baseURL}/saveArt`, {

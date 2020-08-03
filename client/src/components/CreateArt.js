@@ -15,12 +15,13 @@ class  CreateArt extends React.Component {
     };
 
     onResult = () => {
+        console.log("????00")
         this.setState({ result: !this.state.result })
     }
 
     content = () => {
         if (this.state.result) {
-            return <ShareArt />
+            return <ShareArt onBack={this.onResult} />
         } else {
             return (
                 <div className="create-art">

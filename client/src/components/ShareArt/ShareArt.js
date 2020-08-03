@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { CircularProgress } from '@material-ui/core';
+
 import Button from '../common/Button';
 import Display from '../common/Display';
 import { BaseURLFacebook, sendArt, checkIfPaid } from '../../api/database';
@@ -41,7 +43,7 @@ class ShareArt extends React.Component {
                     this.setState({ isPaid: true });
                     clearInterval(checking);
                 }
-            }, 60000);
+            }, 5000);
         };
     }
 
@@ -57,15 +59,24 @@ class ShareArt extends React.Component {
 
     facebookAvailable() {
         return (
-            <iframe 
-                src={`https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2F${BaseURLFacebook}/${this.state.id}&layout=button&size=large&width=77&height=28&appId`}
-                title="facebook-share-button"
-                width="107" 
-                height="28" 
-                style={{border:'none', overflow:'hidden'}} scrolling="no" 
-                frameBorder="0"
-                allow="encrypted-media">
-            </iframe>
+            <div>
+                <p>
+                    Twój pixelart jest dostępny pod adresem:
+                    < br />
+                    <a href={`${BaseURLFacebook}/${this.state.id}`}>
+                        {`${BaseURLFacebook}/${this.state.id}`}
+                    </a>
+                </p>
+                <iframe 
+                    src={`https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2F${BaseURLFacebook}/${this.state.id}&layout=button&size=large&width=77&height=28&appId`}
+                    title="facebook-share-button"
+                    width="107" 
+                    height="28" 
+                    style={{border:'none', overflow:'hidden'}} scrolling="no" 
+                    frameBorder="0"
+                    allow="encrypted-media">
+                </iframe>
+            </div>
         )
     }
 
@@ -83,11 +94,20 @@ class ShareArt extends React.Component {
                     readOnly="readOnly" />
                 <Button onButtonClick={this.copyId} text="Skopiuj ID" /> 
                 <Button onButtonClick={this.openPortal} text="wpłać" />
+                <p>Sprawdzam czy dokonano płatności:</p>
+                <CircularProgress color='inherit' size="2rem"/>
             </div>
         )
     }
 
     whatToDisplay() {
+        if (this.state.id === "") {
+            return ( 
+            <div style={{margin:"10px"}}>
+                <CircularProgress color='inherit' size="2rem"/>
+            </div>
+            )
+        }
         return (this.state.isPaid) ? this.facebookAvailable() : this.textDisplay();
     }
 
@@ -96,6 +116,7 @@ class ShareArt extends React.Component {
             <div className="share-art">
                 <Display pixels={this.props.pixels} width={this.props.width} height={this.props.height} />
                 {this.whatToDisplay()}
+                <Button onButtonClick={this.props.onBack} text="wróć" />
             </div>
         )
     }
