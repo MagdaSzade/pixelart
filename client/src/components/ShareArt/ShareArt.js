@@ -5,7 +5,8 @@ import { CircularProgress } from '@material-ui/core';
 
 import Button from '../common/Button';
 import Display from '../common/Display';
-import { BaseURLFacebook, sendArt, checkIfPaid } from '../../api/database';
+import IsNotPaid from '../common/IsNotPaid';
+import { BaseURLFacebook, sendArt } from '../../api/database';
 
 import '../../styles/shareArt.css';
 
@@ -19,6 +20,7 @@ class ShareArt extends React.Component {
     state = {
         id: "",
         isPaid: false,
+        isError: false,
     }
 
     componentDidMount() {
@@ -35,30 +37,12 @@ class ShareArt extends React.Component {
             pixelsToSend.push(pixel.color);
         }
         const response = await sendArt(pixelsToSend, this.props.width);
-        this.setState({ id: response.data._id });
-        this.checkIfPaid();
-    }
-    
-    checkIfPaid = async () => {
-        if ( !this.state.isPaid ) {
-            this.interwalID = setInterval(async () => {
-                let res = await checkIfPaid(this.state.id);
-                if ( res === true ) {
-                    this.setState({ isPaid: true });
-                    clearInterval(this.interwalID);
-                }
-            }, 5000);
-        };
-    }
-
-    copyId = () => {
-        this.idAreaRef.current.select();
-        document.execCommand('copy');
-    }
-    
-    openPortal = async () => {
-        const win = window.open('https://www.siepomaga.pl/skarbonki/pixelart/koszyk/dodaj');
-        win.focus();
+        if (response) {
+            this.setState({ id: response.data._id });
+            console.log(response.data._id);
+        } else {
+            this.setState({ isError: true })
+        }
     }
 
     facebookAvailable() {
@@ -68,7 +52,8 @@ class ShareArt extends React.Component {
                     Twój pixelart jest dostępny pod adresem:
                     < br />
                     <a href={`${BaseURLFacebook}/${this.state.id}`}>
-                        {`${BaseURLFacebook}/${this.state.id}`}
+                        {`${BaseURLFacebook}/`}
+                        <br /> {`${this.state.id}`}
                     </a>
                 </p>
                 <iframe 
@@ -84,34 +69,42 @@ class ShareArt extends React.Component {
         )
     }
 
+    isPaid = () => {
+        this.setState({ isPaid: true });
+    }
+
     textDisplay() {
         return (
             <div className="summary">
+                <IsNotPaid id={this.state.id} isPaid={this.isPaid} />
                 <p>
-                    Aby udostępnić swój pixelart na facebooku zapłać cokolwiek na skarbonkę Sandry.
-                    W polu słowa wsparcia wpisz:
+                    Po dokonaniu płatności twój pixelart będzie dostępny pod adresem:
+                    < br />
+                    <a href={`https://${BaseURLFacebook}/${this.state.id}`}>
+                        {`${BaseURLFacebook}/`}
+                        <br /> {`${this.state.id}`}
+                    </a>
                 </p>
-                <input 
-                    ref={this.idAreaRef}
-                    type="text"
-                    value={this.state.id}
-                    readOnly="readOnly" />
-                <Button onButtonClick={this.copyId} text="Skopiuj ID" /> 
-                <Button onButtonClick={this.openPortal} text="wpłać" />
-                <p>Sprawdzam czy dokonano płatności:</p>
-                <CircularProgress color='inherit' size="2rem"/>
             </div>
         )
     }
 
     whatToDisplay() {
-        if (this.state.id === "") {
+        if (this.state.isError) {
+            return (
+                <p>
+                    UPS! Coś poszło nie tak... Przykro mi.
+                    <br />
+                    Spróbuj ponownie później.
+                </p>  
+            )
+        } else if (this.state.id === "") {
             return ( 
             <div style={{margin:"10px"}}>
                 <CircularProgress color='inherit' size="2rem"/>
             </div>
             )
-        }
+        } 
         return (this.state.isPaid) ? this.facebookAvailable() : this.textDisplay();
     }
 

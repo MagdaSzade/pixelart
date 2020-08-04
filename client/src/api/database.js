@@ -6,11 +6,15 @@ export const baseURL = 'http://localhost:9090/api/art';
 export const BaseURLFacebook = 'pixelartagainstsma.herokuapp.com';
 
 export const sendArt = async (pixels, width) => {
-    const response = await axios.post(`${baseURL}/saveArt`, {
-        pixels,
-        width
-    });
-    return response;
+    try {
+        const response = await axios.post(`${baseURL}/saveArt`, {
+            pixels,
+            width
+        });
+        return response;
+    } catch (err) {
+        return null;
+    };
 };
 
 export const checkIfPaid = async (id) => {
@@ -19,6 +23,11 @@ export const checkIfPaid = async (id) => {
 }
 
 export const getArt = async (id) => {
-    const response = await axios.get(`${baseURL}/find/${id}`)
-    return response.data;
+    try {
+        const response = await axios.get(`${baseURL}/find/${id}`);
+        console.log(response)
+        return response;
+    } catch (err) {
+        return null;
+    }
 }

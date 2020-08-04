@@ -1,11 +1,11 @@
-.summary p {
+.is-not-paid p {
     width: 50%;
     margin-left: auto;
     margin-right: auto;
     font-size: 0.9rem;
 }
 
-.summary input {
+.is-not-paid input {
     font-size: 0.8rem;
     font-family: 'Kreon', serif;
     letter-spacing: 0.07rem;
@@ -16,7 +16,7 @@
     text-align: center;
 }
 
-.summary .button {
+.is-not-paid .button {
     display: inline;
     margin: 5px;
 }
