@@ -24,7 +24,14 @@ saveArt = async (req, res) => {
             const artTemp = await Art.findById(art._id);
             if (!artTemp.isPaid) {
                 try {
-                    await Art.findByIdAndDelete(artTemp._id);
+                    const isPaid = await scrapeId(artTemp._id);
+                     if(!isPaid) {
+                        await Art.findByIdAndDelete(artTemp._id);
+                     } else {
+                         artTemp.isPaid = true;
+                         artTemp.save();
+                     }
+                    
                 } catch (err) {
                     console.log(err.massage);
                 }
@@ -35,18 +42,16 @@ saveArt = async (req, res) => {
 }; 
 
 isPaid = async (req, res) => {
-    console.log("hallo")
     try {
         const art = await Art.findById(req.params.id);
             if (art.isPaid) {
-                console.log(art.isPaid);
                 return res.status(200).json({ isPaid: art.isPaid}).send();
             }
             if (art) {
                 const isPaid = 
                     { isPaid: await scrapeId(req.params.id) };
                 res.status(200).json(isPaid).send();
-                if (isPaid.isPaid === true) {
+                if (isPaid.isPaid) {
                     art.isPaid = true;
                     art.save();
                 }
@@ -60,10 +65,8 @@ isPaid = async (req, res) => {
 
 
 getArt = async (req, res) => {
-    console.log(req.params.id);
     try {
         const art = await Art.findById(req.params.id);
-        console.log(art);
             if (art.isPaid) {
                 return res.status(200).json(art).send();
             } 
