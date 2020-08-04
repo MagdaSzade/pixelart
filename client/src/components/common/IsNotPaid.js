@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { CircularProgress } from '@material-ui/core';
 
@@ -94,6 +95,11 @@ class IsNotPaid extends React.Component {
     render() {
         return <div>{this.whatToRender()}</div>
     }
+}
+
+IsNotPaid.propTypes = {
+    id: PropTypes.string.isRequired,
+    isPaid: PropTypes.func.isRequired,
 }
 
 export default IsNotPaid;

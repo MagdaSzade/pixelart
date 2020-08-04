@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 import "../../styles/pixel.css";
 
@@ -26,6 +27,12 @@ class Pixel extends React.Component {
             </div>
         )
     }
+}
+
+Pixel.propTypes = {
+    id: PropTypes.string,
+    style:  PropTypes.object.isRequired,
+    onPixelClick: PropTypes.func,
 }
 
 export default Pixel;

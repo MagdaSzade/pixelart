@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Pixel from '../common/Pixel';
@@ -47,6 +48,11 @@ const mapStateToProps = state => {
     return {
         selectedColor: state.selectedColor
     }
+}
+
+SelectColor.propTypes = {
+    selectedColor: PropTypes.string.isRequired,
+    selectColor: PropTypes.func,
 }
 
 export default connect(mapStateToProps, { selectColor })(SelectColor);

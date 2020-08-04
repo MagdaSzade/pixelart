@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Pixel from '../common/Pixel';
@@ -76,11 +77,11 @@ class Canva extends React.Component {
         }
     }
 
-    startPainting = (event) => {
+    startPainting = () => {
         this.setState({isClicked: true})
     }
 
-    stopPainting = event => {
+    stopPainting = () => {
         this.setState({isClicked: false});
         if(this.tempPixels.length !== 0) {
             const newPixels = this.props.pixels.map((pixel, i) => {
@@ -118,6 +119,16 @@ const mapStateToProps = state => {
         clear: state.clear,
         selectedColor: state.selectedColor
     }
+}
+
+Canva.propTypes = {
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
+    pixels: PropTypes.array.isRequired,
+    clear:  PropTypes.bool.isRequired,
+    selectedColor: PropTypes.string.isRequired,
+    setPixels:  PropTypes.func.isRequired,
+    clearCanva: PropTypes.func.isRequired,
 }
 
 export default connect(mapStateToProps, { setPixels, clearCanva })(Canva);

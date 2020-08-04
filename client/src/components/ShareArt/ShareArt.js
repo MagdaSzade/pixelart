@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { CircularProgress } from '@material-ui/core';
@@ -39,7 +40,6 @@ class ShareArt extends React.Component {
         const response = await sendArt(pixelsToSend, this.props.width);
         if (response) {
             this.setState({ id: response.data._id });
-            console.log(response.data._id);
         } else {
             this.setState({ isError: true })
         }
@@ -125,6 +125,12 @@ const mapStateToProps = state => {
         height: state.size.height,
         pixels: state.pixels
     }
+}
+
+ShareArt.propTypes = {
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
+    pixels: PropTypes.array.isRequired,
 }
 
 export default connect(mapStateToProps)(ShareArt);

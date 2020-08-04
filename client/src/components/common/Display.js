@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class Display extends React.Component {
     componentDidMount() {
@@ -27,6 +28,12 @@ class Display extends React.Component {
             </div>
         )
     }
+}
+
+Display.propTypes = {
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
+    pixels: PropTypes.array.isRequired,
 }
 
 export default Display;

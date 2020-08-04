@@ -25,7 +25,6 @@ export const checkIfPaid = async (id) => {
 export const getArt = async (id) => {
     try {
         const response = await axios.get(`${baseURL}/find/${id}`);
-        console.log(response)
         return response;
     } catch (err) {
         return null;

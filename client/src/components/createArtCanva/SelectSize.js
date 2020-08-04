@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { selectSize, clearCanva } from '../../actions';
@@ -72,4 +73,10 @@ const mapStateToProps = props => {
     }
 }
 
+SelectSize.propTypes = {
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
+    selectSize: PropTypes.func.isRequired,
+    clearCanva: PropTypes.func.isRequired,
+}
 export default connect(mapStateToProps, { selectSize, clearCanva })(SelectSize);  
