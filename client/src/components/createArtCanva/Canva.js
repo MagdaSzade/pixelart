@@ -9,9 +9,15 @@ import { indexOfPixel, createWhiteBoard } from '../../helpers/key';
 import '../../styles/canva.css'
 
 class Canva extends React.Component {
+    constructor(props) {
+        super(props);
+        this.tempPixels=[];
+    }
+    
     state = {
         width: 0,
-        height: 0
+        height: 0,
+        isClicked: false
     }
 
     componentDidMount() {
@@ -62,9 +68,36 @@ class Canva extends React.Component {
         this.props.setPixels(newPixels);
     }
 
+    onPainting = (event) => {
+        if(this.state.isClicked && event.target.id) {
+            const index = indexOfPixel(event.target.id, this.props.width);
+            event.target.style.backgroundColor=this.props.selectedColor;
+            this.tempPixels.push(index);
+        }
+    }
+
+    startPainting = (event) => {
+        this.setState({isClicked: true})
+    }
+
+    stopPainting = event => {
+        this.setState({isClicked: false});
+        if(this.tempPixels.length !== 0) {
+            const newPixels = this.props.pixels.map((pixel, i) => {
+                if (this.tempPixels.includes(i)) {
+                   return { color: this.props.selectedColor, key: pixel.key } 
+                } else {
+                    return pixel;
+                }
+            });
+            this.tempPixels=[];
+            this.props.setPixels(newPixels);
+        }
+    }
+
     render() {
         return (
-            <div className='canva-conteiner'>
+            <div className='canva-conteiner' onMouseOver={this.onPainting} onMouseDown={this.startPainting} onMouseUp={this.stopPainting} onMouseLeave={this.stopPainting}>
                 <div 
                     className="canva grid"
                     id="canva"
