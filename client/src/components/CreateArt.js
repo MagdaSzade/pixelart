@@ -15,7 +15,6 @@ class  CreateArt extends React.Component {
     };
 
     onResult = () => {
-        console.log("????00")
         this.setState({ result: !this.state.result })
     }
 

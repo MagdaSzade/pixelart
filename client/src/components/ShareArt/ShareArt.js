@@ -13,6 +13,7 @@ class ShareArt extends React.Component {
     constructor(props) {
         super(props);
         this.idAreaRef = React.createRef();
+        this.interwalID = null;
     }
 
     state = {
@@ -22,6 +23,10 @@ class ShareArt extends React.Component {
 
     componentDidMount() {
         this.saveToDatabase();
+    }
+
+    componentWillUnmount() {
+        if(this.interwalID) clearInterval(this.interwalID);
     }
 
     saveToDatabase = async () => {
@@ -36,12 +41,11 @@ class ShareArt extends React.Component {
     
     checkIfPaid = async () => {
         if ( !this.state.isPaid ) {
-            var checking = setInterval(async () => {
+            this.interwalID = setInterval(async () => {
                 let res = await checkIfPaid(this.state.id);
-                console.log(res);
                 if ( res === true ) {
                     this.setState({ isPaid: true });
-                    clearInterval(checking);
+                    clearInterval(this.interwalID);
                 }
             }, 5000);
         };
