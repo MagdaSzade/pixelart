@@ -6,6 +6,7 @@ import { CircularProgress } from '@material-ui/core';
 
 import Button from '../common/Button';
 import Display from '../common/Display';
+import Facebook from '../common/Facebook';
 import IsNotPaid from '../common/IsNotPaid';
 import { BaseURLFacebook, sendArt } from '../../api/database';
 
@@ -51,20 +52,14 @@ class ShareArt extends React.Component {
                 <p>
                     Twój pixelart jest dostępny pod adresem:
                     < br />
-                    <a href={`${BaseURLFacebook}/${this.state.id}`}>
+                    <a href={`/${this.state.id}`}>
                         {`${BaseURLFacebook}/`}
                         <br /> {`${this.state.id}`}
                     </a>
                 </p>
-                <iframe 
-                    src={`https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2F${BaseURLFacebook}/${this.state.id}&layout=button&size=large&width=77&height=28&appId`}
-                    title="facebook-share-button"
-                    width="107" 
-                    height="28" 
-                    style={{border:'none', overflow:'hidden'}} scrolling="no" 
-                    frameBorder="0"
-                    allow="encrypted-media">
-                </iframe>
+                <div>
+                    <Facebook id={this.state.id} />
+                </div>
             </div>
         )
     }
@@ -80,7 +75,7 @@ class ShareArt extends React.Component {
                 <p>
                     Po dokonaniu płatności twój pixelart będzie dostępny pod adresem:
                     < br />
-                    <a href={`https://${BaseURLFacebook}/${this.state.id}`}>
+                    <a href={`/${this.state.id}`}>
                         {`${BaseURLFacebook}/`}
                         <br /> {`${this.state.id}`}
                     </a>
@@ -109,6 +104,7 @@ class ShareArt extends React.Component {
     }
 
     render() {
+
         return (
             <div className="share-art">
                 <Display pixels={this.props.pixels} width={this.props.width} height={this.props.height} />

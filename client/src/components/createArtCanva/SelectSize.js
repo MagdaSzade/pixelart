@@ -15,17 +15,32 @@ class SelectSize extends React.Component {
     }
 
     onHeightChange = event => {
-        this.setState({height: parseInt(event.target.value)});
+        if(event.target.value && !event.target.value.includes('e')) {
+            try {
+                this.setState({ height: parseInt(event.target.value) });
+            } catch (err) {
+            }
+        } else {
+            this.setState({ height: "" });
+        }
     };
 
-    
     onWidthChange = event => {
-        this.setState({width: parseInt(event.target.value)});
+        if(event.target.value && !event.target.value.includes('e')) {
+            try {
+                this.setState({ width: parseInt(event.target.value) });
+            } catch (err) {
+            }
+        } else {
+            this.setState({ width: "" });
+        }
     };
 
     onSizeChange = event => {
         event.preventDefault();
-        this.props.selectSize(this.state.width, this.state.height);
+        if (this.state.width <= 20 && this.state.width > 0 && this.state.height <= 20 && this.state.height > 0 ) {
+            this.props.selectSize(this.state.width, this.state.height);
+        }
     }
 
     onClear = () => {
@@ -35,6 +50,9 @@ class SelectSize extends React.Component {
     render() {
         return(
             <div className="select-size">
+                <p className="info">
+                    wysokość i szerokość muszą mieścić się w zakresie 1-20
+                </p>
                 <form onSubmit={this.onSizeChange}>
                     <div className="grid inputs">
                         <label htmlFor="height">Wysokość</label>
@@ -42,8 +60,8 @@ class SelectSize extends React.Component {
                             type="number"
                             id="height"
                             name="height"
-                            min="5"
-                            max="15"
+                            min="1"
+                            max="20"
                             value={this.state.height}
                             onChange={this.onHeightChange}
                         />
@@ -53,8 +71,8 @@ class SelectSize extends React.Component {
                             type="number"
                             id="width"
                             name="width"
-                            min="5"
-                            max="15"
+                            min="1"
+                            max="20"
                             value={this.state.width}
                             onChange={this.onWidthChange}
                         />

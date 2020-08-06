@@ -31,6 +31,7 @@ class Result extends React.Component {
     }
 
     componentDidUpdate = async () => {
+        console.log(this.state.id);
         if (this.state.pixels.length === 0 && this.state.isPaid) {
             const response = await getArt(this.props.match.params.id);
             if (response && response.data.pixels) {
