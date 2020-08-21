@@ -7,7 +7,7 @@
 <p>Stack: React Redux</p>
 <h3>Backend</h3>
 <p>Stack: Express.js MongoDB</p>
-<img href="./myApp.png">
+![myApp](myApp.png)
 <br />
 <br />
 <h2>Instlation</h2>
@@ -15,11 +15,9 @@
 <br />
 <h3> Step 1 - clone or download repo </h3>
 <p><i>github clone https://github.com/MagdaSzade/pixelart.git</i></p>
-</br>
 <h3>Step 2 - install dependencies</h3>
-<p>In client catalogue run <i>npm install</i></p><br />
-<p>In server catalogue run <i>npm install</i></p><br />
-<br />
+<p>In client catalogue run <i>npm install</i></p>
+<p>In server catalogue run <i>npm install</i></p>
 <h3>Step 3 - MongoDB</h3>
 <p>In catalogue ./server/db  set your db connection</p>
 <h3>Step 3 - developing mode</h3>
