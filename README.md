@@ -1,17 +1,13 @@
-#PixelART
+<h1>PixelART</h1>
  
- <h2>Overview</h2>
+<h2>Overview</h2>
 <p>React app for creating pixelart and share it on facebook</p>
 <h3>Frontend</h3>
 <p>Frontend - created with the use of create-react-app; </p>
-<br />
 <p>Stack: React Redux</p>
-<br />
 <h3>Backend</h3>
 <p>Stack: Express.js MongoDB</p>
-<br />
-<br />
-![myApp.PNG](myApp.PNG)
+<img href="./myApp.png">
 <br />
 <br />
 <h2>Instlation</h2>
@@ -24,6 +20,8 @@
 <p>In client catalogue run <i>npm install</i></p><br />
 <p>In server catalogue run <i>npm install</i></p><br />
 <br />
+<h3>Step 3 - MongoDB</h3>
+<p>In catalogue ./server/db  set your db connection</p>
 <h3>Step 3 - developing mode</h3>
 <p>In client catalogue run <i>npm start</i></p><br />
 <p>In another terminal in server catalogue run <i>npm run server</i></p><br />
@@ -34,5 +32,5 @@
     <li>Add users - register, log in save yours own art</li>
     <li>Add gallery - scroll through existing arts and play with them</li>
     <li>Add custom color pixels</li>
-    <li>Add canva to cooperate with other users in painting<li>
+    <li>Add canva to cooperate with other users in painting</li>
 </ul>
