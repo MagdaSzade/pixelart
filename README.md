@@ -8,10 +8,6 @@
 <p>Stack: React Redux</p>
 <h3>Backend</h3>
 <p>Stack: Express.js MongoDB</p>
-
-<img href="./startPage.PNG" alt="screen" />
-<br />
-<br />
 <h2>Instlation</h2>
 <p><b>Attention!</b> Client side and server side are running on different ports independently. At this point of time it's imposible to run both in development mode on one port</p>
 <br />
