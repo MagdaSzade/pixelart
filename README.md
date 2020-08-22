@@ -1,3 +1,4 @@
+![startPage.PNG](startPage.PNG)
 <h1>PixelART</h1>
  
 <h2>Overview</h2>
@@ -7,6 +8,7 @@
 <p>Stack: React Redux</p>
 <h3>Backend</h3>
 <p>Stack: Express.js MongoDB</p>
+
 <img href="./startPage.PNG" alt="screen" />
 <br />
 <br />
