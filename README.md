@@ -7,7 +7,7 @@
 <p>Stack: React Redux</p>
 <h3>Backend</h3>
 <p>Stack: Express.js MongoDB</p>
-<img href="./myApp.png" />
+![startPage.PNG](startPage.PNG)
 <br />
 <br />
 <h2>Instlation</h2>
