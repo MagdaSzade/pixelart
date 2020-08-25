@@ -2,6 +2,7 @@ const { User, userValidator } = require('../models/userModel');
 const asyncMid = require('../middleware/asyncMid');
 const { createHashedPassword } = require('../auth/password');
 const { createConfirmationMail } = require('../email');
+const { verifyToken } = require('../auth/token');
 const { info } = require('winston');
 
 registerUser = asyncMid(async (req, res) => {
@@ -27,7 +28,10 @@ registerUser = asyncMid(async (req, res) => {
 });
 
 confirmEmail = asyncMid(async (req, res) => {
-    return res.status(200).send();
+    if (verifyToken(req.params.token)) {
+        return res.status(200).send();
+    }
+    return res.status(400).send();
 });
 
 

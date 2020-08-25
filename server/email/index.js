@@ -1,6 +1,5 @@
 const nodemailer = require('nodemailer');
 const config = require('config');
-const url = require('url');
 
 const { createToken } = require('../auth/token');
 
