@@ -28,8 +28,12 @@ registerUser = asyncMid(async (req, res) => {
 });
 
 confirmEmail = asyncMid(async (req, res) => {
-    if (verifyToken(req.params.token)) {
-        return res.status(200).send();
+    const id = verifyToken(req.params.token).data;
+    if (id) {
+        const user = await User.findById(id);
+        user.confirmed = true;
+        await user.save();
+        return res.redirect('/');
     }
     return res.status(400).send();
 });
