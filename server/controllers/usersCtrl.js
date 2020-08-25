@@ -26,8 +26,13 @@ registerUser = asyncMid(async (req, res) => {
     return res.status(400).send();
 });
 
+confirmEmail = asyncMid(async (req, res) => {
+    return res.status(200).send();
+});
+
 
 
 module.exports = {
     registerUser,
+    confirmEmail,
 }

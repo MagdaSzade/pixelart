@@ -3,16 +3,24 @@ const config = require('config');
 const { sign, verify } = require('jsonwebtoken');
 
 const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 465,
-    secure: true,
-    auth: {
-      user: config.get('email'),
-      pass: config.get('password')
-    }
-  });
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true,
+  auth: {
+    user: config.get('email'),
+    pass: config.get('password')
+  }
+});
 
-const createConfirmationMail = (user) => { 
+const createToken = (user) => {
+  return sign({
+    data: user._id, 
+    exp: Math.floor(Date.now() / 1000) + (60 * 60),
+  }, 'secret');
+};
+
+const createConfirmationMail = (user) => {
+  console.log(creteToken);
   transporter.sendMail({
     from: config.get('email'),
     to: user.email,
@@ -23,5 +31,6 @@ const createConfirmationMail = (user) => {
 
 module.exports = {
     transporter,
-    createConfirmationMail
+    createConfirmationMail,
+    createToken,
 }

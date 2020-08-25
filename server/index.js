@@ -4,13 +4,14 @@ const cors = require('cors');
 const path = require('path');
 const db = require('./db');
 const compression = require('compression');
+const config = require('config');
 
 const errors =require('./middleware/errors');
 
 const artRouter = require("./routes/art");
 const userRouter = require("./routes/users");
 const helmet = require('helmet');
-const logger = require('./logger')
+const logger = require('./logger');
 
 const app = express();
 

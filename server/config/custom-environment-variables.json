@@ -2,5 +2,6 @@
     "email": "pixelart_email",
     "password": "pixelart_emailPassword",
     "jwtPrivateKey": "pixelart_jwtPrivateKey",
-    "webAdress": "pixelart_webAdress"
+    "webAdress": "pixelart_webAdress",
+    "db": "db_connection"
 }

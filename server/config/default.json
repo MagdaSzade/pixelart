@@ -2,5 +2,6 @@
     "email": "",
     "password": "",
     "jwtPrivateKey": "",
-    "webAdress": ""
+    "webAdress": "",
+    "db": ""
 }
