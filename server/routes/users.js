@@ -5,6 +5,6 @@ const { registerUser, confirmEmail } = require('../controllers/usersCtrl');
 const router = express();
 
 router.post('/register', registerUser);
-router.put('/confirm/:token', confirmEmail);
+router.get('/confirm/:token', confirmEmail);
 
 module.exports = router;

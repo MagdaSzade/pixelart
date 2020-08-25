@@ -1,6 +1,6 @@
 const { User, userValidator } = require('../models/userModel'); 
 const asyncMid = require('../middleware/asyncMid');
-const { createHashedPassword } = require('../token/password');
+const { createHashedPassword } = require('../auth/password');
 const { createConfirmationMail } = require('../email');
 const { info } = require('winston');
 

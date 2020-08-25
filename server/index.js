@@ -4,7 +4,6 @@ const cors = require('cors');
 const path = require('path');
 const db = require('./db');
 const compression = require('compression');
-const config = require('config');
 
 const errors =require('./middleware/errors');
 
@@ -25,15 +24,12 @@ app.use(cors());
 app.use(express.json());
 app.use(helmet());
 app.use(compression());
-//app.use(express.static(path.join(__dirname, '../client/build')));
+app.use(express.static(path.join(__dirname, '../client/build')));
 app.use('/api/users', userRouter);
 app.use('/api/art', artRouter);
-app.use('/', (req, res) => {
-    return res.status(200).send("hello");
-})
-//app.get('/*', (req, res) => {
-//    res.sendFile(path.join(__dirname, '../client/build', 'index.html'))
-//});
+app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/build', 'index.html'))
+});
 
 app.use(errors);
 

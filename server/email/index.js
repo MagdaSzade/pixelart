@@ -1,6 +1,8 @@
 const nodemailer = require('nodemailer');
 const config = require('config');
-const { sign, verify } = require('jsonwebtoken');
+const url = require('url');
+
+const { createToken } = require('../auth/token');
 
 const transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
@@ -12,25 +14,22 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-const createToken = (user) => {
-  return sign({
-    data: user._id, 
-    exp: Math.floor(Date.now() / 1000) + (60 * 60),
-  }, 'secret');
-};
+const createURL = (user) => {
+  return `${config.get("webAdress")}/api/users/confirm/${createToken(user)}`;
+}
 
-const createConfirmationMail = (user) => {
-  console.log(creteToken);
-  transporter.sendMail({
+const createConfirmationMail = async (user) => {
+  return await transporter.sendMail({
     from: config.get('email'),
     to: user.email,
     subject: `Dziękuję za rejestrację w aplikacji PixelArt`,
-    html: `Aby potwierdzić adress email kliknij w poniższy link <a href="#">POTWIERDŹ MNIE!!!</a>`
-  })
+    html: `<p>Aby potwierdzić adress email kliknij w poniższy link<p> 
+    <a href="${createURL(user)}">POTWIERDŹ MNIE!!!</a>`
+  });
 };
 
 module.exports = {
     transporter,
     createConfirmationMail,
-    createToken,
+    createURL,
 }
