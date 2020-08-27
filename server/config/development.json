@@ -1,0 +1,7 @@
+{
+    "email": "pixelartagainstSMA@gmail.com",
+    "password": "abcSMA123!",
+    "jwtPrivateKey": "pixelart123!",
+    "webAdress": "http://localhost:9090",
+    "db": "mongodb://127.0.0.1:27017/pixelart"
+}
