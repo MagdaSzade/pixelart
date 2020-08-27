@@ -27,6 +27,13 @@ registerUser = asyncMid(async (req, res) => {
     return res.status(400).send();
 });
 
+checkIfConfirmed = async (id) => {
+    const user = await User.findById(id);
+    if (!user.confirmed) {
+        User.findByIdAndDelete(id);
+    } 
+}
+
 confirmEmail = asyncMid(async (req, res) => {
     const id = verifyToken(req.params.token).data;
     if (id) {
@@ -43,4 +50,5 @@ confirmEmail = asyncMid(async (req, res) => {
 module.exports = {
     registerUser,
     confirmEmail,
+    checkIfConfirmed
 }
